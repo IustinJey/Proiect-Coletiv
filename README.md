@@ -1,4 +1,4 @@
-# Proiect-Coletiv
+# Skillz
 
 Comenzi git:
 
