@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using skillz_backend.DTOs;
 using skillz_backend.models;
 using skillz_backend.Services;
 
@@ -24,20 +23,20 @@ namespace skillz_backend.controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registrationModel)
+        public async Task<IActionResult> Register([FromBody] User userModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var existingUser = await _userService.GetUserByUsernameAsync(registrationModel.Username);
+            var existingUser = await _userService.GetUserByUsernameAsync(userModel.Username);
             if (existingUser != null)
             {
                 return BadRequest(new { Message = "Username already taken." });
             }
 
-            existingUser = await _userService.GetUserByEmailAsync(registrationModel.Email);
+            existingUser = await _userService.GetUserByEmailAsync(userModel.Email);
             if (existingUser != null)
             {
                 return BadRequest(new { Message = "Email already in use." });
@@ -45,9 +44,9 @@ namespace skillz_backend.controllers
 
             var newUser = new User
             {
-                Username = registrationModel.Username,
-                Email = registrationModel.Email,
-                Password = registrationModel.Password
+                Username = userModel.Username,
+                Email = userModel.Email,
+                Password = userModel.Password
             };
 
             await _userService.CreateUserAsync(newUser);
@@ -58,11 +57,11 @@ namespace skillz_backend.controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginModel)
+        public async Task<IActionResult> Login([FromBody] User userModel)
         {
-            var user = await _userService.GetUserByUsernameAsync(loginModel.Username);
+            var user = await _userService.GetUserByUsernameAsync(userModel.Username);
 
-            if (user == null || !_authenticationService.ValidatePassword(loginModel.Password, user.Password, user.Salt))
+            if (user == null || !_authenticationService.ValidatePassword(userModel.Password, user.Password, user.Salt))
             {
                 return Unauthorized(new { Message = "Invalid username or password." });
             }
