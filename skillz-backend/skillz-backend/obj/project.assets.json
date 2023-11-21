@@ -3098,6 +3098,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Microsoft.EntityFrameworkCore >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.13",
@@ -3105,19 +3106,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Emi\\.nuget\\packages\\": {}
+    "C:\\Users\\claud\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Emi\\dev\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+      "projectUniqueName": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
       "projectName": "skillz-backend",
-      "projectPath": "C:\\Users\\Emi\\dev\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
-      "packagesPath": "C:\\Users\\Emi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Emi\\dev\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
+      "projectPath": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+      "packagesPath": "C:\\Users\\claud\\.nuget\\packages\\",
+      "outputPath": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Emi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\claud\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3143,6 +3144,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.13, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
@@ -3186,5 +3191,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
