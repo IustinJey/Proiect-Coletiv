@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\claud\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "projectName": "skillz-backend",
+        "projectPath": "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "packagesPath": "C:\\Users\\Alina\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Alina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 8ed7076db8beb5eb688e5b59d3e4baac55a0d21e
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -84,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

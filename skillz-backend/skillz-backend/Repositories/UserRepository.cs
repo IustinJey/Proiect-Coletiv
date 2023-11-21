@@ -11,11 +11,14 @@ namespace skillz_backend.Repositories
         Task<User> GetUserByIdAsync(int userId);
         Task<User> GetUserByUsernameAsync(string username);
         Task<User> GetUserByEmailAsync(string email);
+<<<<<<< HEAD
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<IEnumerable<User>> GetUsersByAgeAsync(int age);
         Task<IEnumerable<User>> GetUsersByLocationAsync(string location);
         Task<IEnumerable<User>> GetUsersByPhoneNumberAsync(string phoneNumber);
         Task<IEnumerable<User>> GetVerifiedUsersAsync();
+=======
+>>>>>>> 8ed7076db8beb5eb688e5b59d3e4baac55a0d21e
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int userId);
@@ -45,6 +48,7 @@ namespace skillz_backend.Repositories
             return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
+<<<<<<< HEAD
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
@@ -71,6 +75,8 @@ namespace skillz_backend.Repositories
             return await _dbContext.Users.Where(u => u.Verified).ToListAsync();
         }
 
+=======
+>>>>>>> 8ed7076db8beb5eb688e5b59d3e4baac55a0d21e
         public async Task CreateUserAsync(User user)
         {
             _dbContext.Users.Add(user);
@@ -92,6 +98,9 @@ namespace skillz_backend.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8ed7076db8beb5eb688e5b59d3e4baac55a0d21e
     }
 }

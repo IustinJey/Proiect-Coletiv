@@ -58,4 +58,8 @@ namespace skillz_backend.Services
             await _userRepository.DeleteUserAsync(userId);
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8ed7076db8beb5eb688e5b59d3e4baac55a0d21e
