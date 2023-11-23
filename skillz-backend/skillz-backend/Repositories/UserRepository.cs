@@ -11,6 +11,11 @@ namespace skillz_backend.Repositories
         Task<User> GetUserByIdAsync(int userId);
         Task<User> GetUserByUsernameAsync(string username);
         Task<User> GetUserByEmailAsync(string email);
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<IEnumerable<User>> GetUsersByAgeAsync(int age);
+        Task<IEnumerable<User>> GetUsersByLocationAsync(string location);
+        Task<IEnumerable<User>> GetUsersByPhoneNumberAsync(string phoneNumber);
+        Task<IEnumerable<User>> GetVerifiedUsersAsync();
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int userId);
@@ -38,6 +43,32 @@ namespace skillz_backend.Repositories
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
+        }
+
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await _dbContext.Users.ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByAgeAsync(int age)
+        {
+            return await _dbContext.Users.Where(u => u.Age == age).ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByLocationAsync(string location)
+        {
+            return await _dbContext.Users.Where(u => u.Location == location).ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByPhoneNumberAsync(string phoneNumber)
+        {
+            return await _dbContext.Users.Where(u => u.PhoneNumber == phoneNumber).ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetVerifiedUsersAsync()
+        {
+            return await _dbContext.Users.Where(u => u.Verified).ToListAsync();
         }
 
         public async Task CreateUserAsync(User user)
