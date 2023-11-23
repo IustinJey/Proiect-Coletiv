@@ -8,9 +8,8 @@ namespace skillz_backend.data
     {
         public DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public SkillzDbContext(DbContextOptions<SkillzDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Server=LAPTOP-KT7UFLKK\SQLEXPRESS;Database=SkillzDatabase;Trusted_Connection=True;Encrypt=False;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
