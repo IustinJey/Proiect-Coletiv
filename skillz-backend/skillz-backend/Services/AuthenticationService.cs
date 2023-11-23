@@ -8,12 +8,6 @@ using skillz_backend.models;
 
 namespace skillz_backend.Services
 {
-    public interface IAuthenticationService
-    {
-        string GenerateToken(User user);
-        bool ValidatePassword(string enteredPassword, string storedPasswordHash, byte[] salt);
-
-    }
 
     public class AuthenticationService : IAuthenticationService
     {

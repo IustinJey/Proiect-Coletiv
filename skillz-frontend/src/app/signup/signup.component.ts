@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -7,18 +8,32 @@ import { Router } from '@angular/router';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
+  nickname: string = "Justin";
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
 
-  constructor(private router: Router) {} // Inject the Router
+  constructor(private router: Router, private authService: AuthService) {}
+  
 
   onSubmit() {
-    console.log('Login clicked');
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    console.log('Confirm Password', this.confirmPassword)
-    this.router.navigate(['/signup-steps']);
+    const user = {
+      nickname: this.nickname,
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.register(user).subscribe(
+      response => {
+        console.log('Registration successful:', response);
+        // Optionally, you can redirect to the login page or handle success
+        this.router.navigate(['/login']);
+      },
+      error => {
+        console.error('Registration failed:', error);
+        // Handle registration error
+      }
+    );
   }
 
   navigateToLogIn() {

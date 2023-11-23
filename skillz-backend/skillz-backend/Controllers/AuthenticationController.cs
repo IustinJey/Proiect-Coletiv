@@ -7,7 +7,7 @@ using skillz_backend.Services;
 namespace skillz_backend.controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("auth/[controller]")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
