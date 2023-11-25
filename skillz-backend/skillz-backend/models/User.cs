@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// User.cs
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace skillz_backend.models
 {
@@ -29,5 +31,13 @@ namespace skillz_backend.models
 
         [Required]
         public byte[] Salt { get; set; }
+
+        // New property for profile picture
+        public string ProfilePicture { get; set; }
+        public List<Job> Jobs { get; set; }
+        public List<ReviewUser> ReviewsUser { get; set; }
+        // Adaugă o colecție de legături către certificate
+        public List<CertificatUser> UserCertificates { get; set; }
+        public List<UserBadge> UserBadges { get; set; }
     }
 }

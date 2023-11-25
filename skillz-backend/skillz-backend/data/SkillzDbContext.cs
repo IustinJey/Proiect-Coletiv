@@ -7,6 +7,15 @@ namespace skillz_backend.data
     public class SkillzDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<JobImage> JobImages { get; set; }
+        public DbSet<ReviewJob> ReviewsJob { get; set; }
+        public DbSet<ReviewUser> ReviewsUser { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<CertificatUser> CertificatsUser { get; set; }
+        public DbSet<Badge> Badges { get; set; }
+        public DbSet<UserBadge> UserBadges { get; set; }
+
 
         public SkillzDbContext(DbContextOptions<SkillzDbContext> options) : base(options)
         {
@@ -16,6 +25,46 @@ namespace skillz_backend.data
         {
             // Configurarea relației dintre User și tabelul Users
             modelBuilder.Entity<User>().ToTable("Users");
+            // Configurarea relației dintre Job și User
+            modelBuilder.Entity<Job>()
+                .HasOne(j => j.User)
+                .WithMany(u => u.Jobs)
+                .HasForeignKey(j => j.IdUser);
+            // Configure relationship between Job and JobImage
+            modelBuilder.Entity<JobImage>()
+                .HasOne(ji => ji.Job)
+                .WithMany(j => j.Images)
+                .HasForeignKey(ji => ji.JobId);
+            // Configurarea relației dintre Review și Job
+            modelBuilder.Entity<ReviewJob>()
+                .HasOne(r => r.Job)
+                .WithMany(j => j.ReviewsJob)
+                .HasForeignKey(r => r.IdJob);
+            // Configurarea relatiei dintre Review si User
+            modelBuilder.Entity<ReviewUser>()
+                .HasOne(r => r.User)
+                .WithMany(j => j.ReviewsUser)
+                .HasForeignKey(r => r.IdUser);
+            // Configurarea relației dintre Certificate și User
+            modelBuilder.Entity<CertificatUser>()
+                .HasOne(cu => cu.User)
+                .WithMany(u => u.UserCertificates)
+                .HasForeignKey(cu => cu.IdUser);
+
+            modelBuilder.Entity<CertificatUser>()
+                .HasOne(cu => cu.Certificate)
+                .WithMany(c => c.UserCertificates)
+                .HasForeignKey(cu => cu.IdCertificate);
+            // Configurarea relației dintre Badge și User
+            modelBuilder.Entity<UserBadge>()
+                .HasOne(ub => ub.User)
+                .WithMany(u => u.UserBadges)
+                .HasForeignKey(ub => ub.IdUser);
+
+            modelBuilder.Entity<UserBadge>()
+                .HasOne(ub => ub.Badge)
+                .WithMany(b => b.UserBadges)
+                .HasForeignKey(ub => ub.IdBadge);
         }
     }
 }
