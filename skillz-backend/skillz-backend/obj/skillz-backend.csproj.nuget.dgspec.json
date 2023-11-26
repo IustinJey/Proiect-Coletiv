@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
+    "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {
+    "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "projectUniqueName": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
         "projectName": "skillz-backend",
-        "projectPath": "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
-        "packagesPath": "C:\\Users\\Alina\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alina\\Desktop\\SkillzGit\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
+        "projectPath": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "packagesPath": "C:\\Users\\claud\\.nuget\\packages\\",
+        "outputPath": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Alina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\claud\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
             "Microsoft.AspNetCore.Cors": {
               "target": "Package",
               "version": "[2.2.0, )"
@@ -88,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
