@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { JobsListingComponent } from './jobs-listing/jobs-listing.component';
+import { JobPageComponent } from './job-page/job-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { JobsListingComponent } from './jobs-listing/jobs-listing.component';
     SignupStepsComponent,
     HomeComponent,
     ProfileComponent,
-    JobsListingComponent
+    JobsListingComponent,
+    JobPageComponent
   ],
   imports: [
     HttpClientModule,

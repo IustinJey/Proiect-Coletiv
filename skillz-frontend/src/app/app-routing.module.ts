@@ -8,6 +8,7 @@ import { SignupStepsComponent } from './signup-steps/signup-steps.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { JobsListingComponent } from './jobs-listing/jobs-listing.component';
+import { JobPageComponent } from './job-page/job-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'signup-steps', component: SignupStepsComponent},
   { path: 'home', component:HomeComponent},
   { path: 'profile', component:ProfileComponent},
-  { path: 'jobs-listing', component:JobsListingComponent}
+  { path: 'jobs-listing', component:JobsListingComponent},
+  { path: 'job-page', component:JobPageComponent}
   // Add other routes as needed
 ];
 
