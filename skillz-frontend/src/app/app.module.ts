@@ -10,6 +10,9 @@ import { SignupStepsComponent } from './signup-steps/signup-steps.component';
 import { AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { JobsListingComponent } from './jobs-listing/jobs-listing.component';
+import { JobPageComponent } from './job-page/job-page.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     SignupComponent,
     SignupStepsComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    JobsListingComponent,
+    JobPageComponent
   ],
   imports: [
     HttpClientModule,

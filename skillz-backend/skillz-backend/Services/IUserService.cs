@@ -14,6 +14,7 @@ namespace skillz_backend.Services
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int userId);
+        // Task GetAllUsersAsync();
     }
 
 }

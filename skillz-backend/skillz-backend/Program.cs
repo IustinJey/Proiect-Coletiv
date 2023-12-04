@@ -11,7 +11,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<SkillzDbContext>(options =>
-    options.UseSqlServer(@"Server=LAPTOP-KT7UFLKK\SQLEXPRESS;Database=SkillzDatabase;Trusted_Connection=True;Encrypt=False;"));
+    options.UseSqlServer(@"Server=ASUS-LAPTOPCLAU\SQLEXPRESS;Database=SkillzDatabase;Trusted_Connection=True;Encrypt=False;"));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -50,6 +50,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors(); // UseCors should be placed after UseRouting and before UseAuthorization
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
