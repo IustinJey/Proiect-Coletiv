@@ -1,106 +1,86 @@
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using skillz_backend.data;
+using skillz_backend.DTOs;
 using skillz_backend.models;
 using skillz_backend.Services;
 
 namespace skillz_backend.controllers
 {
     [ApiController]
-    [Route("auth/[controller]")]
+    [Route("[controller]")]
     public class AuthenticationController : ControllerBase
     {
+        private readonly SkillzDbContext _skillzDbContext;
         private readonly IUserService _userService;
         private readonly IAuthenticationService _authenticationService;
 
-
-        private static List<string> InvalidTokens = new List<string>();
-
-        public AuthenticationController(IUserService userService, IAuthenticationService authenticationService)
+        public AuthenticationController(SkillzDbContext skillzDbContext, IAuthenticationService authenticationService)
         {
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-            _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
+           _skillzDbContext = skillzDbContext;
+           _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] User userModel)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
-            var existingUser = await _userService.GetUserByUsernameAsync(userModel.Username);
-            if (existingUser != null)
-            {
-                return BadRequest(new { Message = "Username already taken." });
-            }
+            using var hmac = new HMACSHA512();
 
-            existingUser = await _userService.GetUserByEmailAsync(userModel.Email);
-            if (existingUser != null)
+            var user = new User
             {
-                return BadRequest(new { Message = "Email already in use." });
-            }
-
-            var newUser = new User
-            {
-                Username = userModel.Username,
-                Email = userModel.Email,
-                Password = userModel.Password
+                Username = registerDto.Username.ToLower(),
+                Email = registerDto.Email.ToLower(),
+                PhoneNumber = registerDto.PhoneNumber.ToLower(),
+                Location = registerDto.Location.ToLower(),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+                PasswordSalt = hmac.Key
             };
 
-            await _userService.CreateUserAsync(newUser);
+            _skillzDbContext.Users.Add(user);
+            await _skillzDbContext.SaveChangesAsync();
 
-            var token = _authenticationService.GenerateToken(newUser);
-
-            return Ok(new { Token = token, Message = "Registration successful." });
+            return new UserDto
+            {
+                Username = user.Username,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Location = user.Location,
+                Token = _authenticationService.GenerateToken(user)
+            };
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User userModel)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _userService.GetUserByUsernameAsync(userModel.Username);
+            var user = await _skillzDbContext.Users.SingleOrDefaultAsync(x => x.Username == loginDto.Username);
+            if (user == null) return Unauthorized("Invalid username");
 
-            if (user == null || !_authenticationService.ValidatePassword(userModel.Password, user.Password, user.Salt))
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+            for (int i = 0; i < computedHash.Length; i++)
             {
-                return Unauthorized(new { Message = "Invalid username or password." });
+                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
             }
 
-            var token = _authenticationService.GenerateToken(user);
-
-            return Ok(new { Token = token });
+            return new UserDto
+            {
+                Username = user.Username,
+                Token = _authenticationService.GenerateToken(user)
+            };
         }
 
-        [HttpPost("logout")]
-        public async Task<IActionResult> Logout()
+        private async Task<bool> UserExists(string username)
         {
-            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-
-            if (string.IsNullOrEmpty(token))
-            {
-                return BadRequest(new { Message = "Invalid token." });
-            }
-
-            // Verifică dacă tokenul este deja în listă (invalidat)
-            bool isTokenInvalidated;
-            lock (InvalidTokens)
-            {
-                isTokenInvalidated = InvalidTokens.Contains(token);
-                if (!isTokenInvalidated)
-                {
-                    // Adaugă tokenul la lista de tokenuri invalide
-                    InvalidTokens.Add(token);
-                }
-            }
-
-            if (isTokenInvalidated)
-            {
-                return BadRequest(new { Message = "Token already invalidated." });
-            }
-
-            return Ok(new { Message = "Logout successful." });
+            return await _skillzDbContext.Users.AnyAsync(x => x.Username == username.ToLower());
         }
-
-
     }
+
 }

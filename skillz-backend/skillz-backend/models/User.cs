@@ -27,17 +27,19 @@ namespace skillz_backend.models
         public bool Verified { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public byte[] PasswordHash { get; set; }
 
         [Required]
-        public byte[] Salt { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
-        // New property for profile picture
         public string ProfilePicture { get; set; }
+
         public List<Job> Jobs { get; set; }
+
         public List<ReviewUser> ReviewsUser { get; set; }
-        // Adaugă o colecție de legături către certificate
+
         public List<CertificatUser> UserCertificates { get; set; }
+
         public List<UserBadge> UserBadges { get; set; }
     }
 }

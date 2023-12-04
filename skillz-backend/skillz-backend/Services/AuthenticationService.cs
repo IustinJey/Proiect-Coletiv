@@ -21,10 +21,9 @@ namespace skillz_backend.Services
         public string GenerateToken(User user)
         {
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.Username),
-            // Poți adăuga și alte claim-uri necesare pentru token
-        };
+            {
+                new Claim(JwtRegisteredClaimNames.NameId, user.Username)
+            };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -42,16 +41,7 @@ namespace skillz_backend.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public bool ValidatePassword(string enteredPassword, string storedPasswordHash, byte[] salt)
-        {
-            byte[] enteredPasswordBytes = Encoding.UTF8.GetBytes(enteredPassword);
 
-            using (var hmac = new System.Security.Cryptography.HMACSHA256(salt))
-            {
-                var computedHash = hmac.ComputeHash(enteredPasswordBytes);
-                return computedHash.SequenceEqual(Convert.FromBase64String(storedPasswordHash));
-            }
-        }
 
     }
 }

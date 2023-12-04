@@ -32,10 +32,10 @@ namespace skillz_backend.Repositories
         }
 
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
-        {
-            return await _dbContext.Users.ToListAsync();
-        }
+        // public async Task<User> GetAllUsersAsync()
+        // {
+        //     return await _dbContext.Users.ToListAsync();
+        // }
 
         public async Task<IEnumerable<User>> GetUsersByAgeAsync(int age)
         {
