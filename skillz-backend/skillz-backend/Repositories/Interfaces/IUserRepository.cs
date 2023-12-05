@@ -11,11 +11,11 @@ namespace skillz_backend.Repositories
         Task<User> GetUserByIdAsync(int userId);
         Task<User> GetUserByUsernameAsync(string username);
         Task<User> GetUserByEmailAsync(string email);
-        // Task<User> GetAllUsersAsync();
-        Task<IEnumerable<User>> GetUsersByAgeAsync(int age);
-        Task<IEnumerable<User>> GetUsersByLocationAsync(string location);
-        Task<IEnumerable<User>> GetUsersByPhoneNumberAsync(string phoneNumber);
-        Task<IEnumerable<User>> GetVerifiedUsersAsync();
+        Task<List<User>> GetAllUsersAsync(); 
+        Task<List<Job>> GetJobsByUserIdAsync(int userId);
+        Task<List<ReviewUser>> GetReviewsByUserIdAsync(int userId);
+        Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId);
+        Task<List<UserBadge>> GetUserBadgesByUserIdAsync(int userId);
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int userId);

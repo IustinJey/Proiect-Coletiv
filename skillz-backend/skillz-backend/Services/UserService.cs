@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using skillz_backend.data;
 using skillz_backend.models;
@@ -44,8 +46,52 @@ namespace skillz_backend.Services
 
             return await _userRepository.GetUserByEmailAsync(email);
         }
+        public async Task<List<Job>> GetJobsByUserIdAsync(int userId)
+        {
+            if (userId <= 0)
+            {
+                throw new ArgumentException("UserId should be a positive integer.");
+            }
 
-        public async Task CreateUserAsync(User user)
+            return await _userRepository.GetJobsByUserIdAsync(userId);
+        }
+
+        public async Task<List<ReviewUser>> GetReviewsByUserIdAsync(int userId)
+        {
+            if (userId <= 0)
+            {
+                throw new ArgumentException("UserId should be a positive integer.");
+            }
+
+            return await _userRepository.GetReviewsByUserIdAsync(userId);
+        }
+
+        public async Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId)
+        {
+            if (userId <= 0)
+            {
+                throw new ArgumentException("UserId should be a positive integer.");
+            }
+
+            return await _userRepository.GetUserCertificatesByUserIdAsync(userId);
+        }
+
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _userRepository.GetAllUsersAsync();
+        }
+
+        public async Task<List<UserBadge>> GetUserBadgesByUserIdAsync(int userId)
+        {
+            if (userId <= 0)
+            {
+                throw new ArgumentException("UserId should be a positive integer.");
+            }
+
+            return await _userRepository.GetUserBadgesByUserIdAsync(userId);
+        }
+
+        public async Task CreateUserWithPlainTextPasswordAsync(User user, string plainTextPassword)
         {
             if (user == null)
             {
@@ -70,8 +116,14 @@ namespace skillz_backend.Services
                 throw new InvalidOperationException("A user with the same email address already exists.");
             }
 
+            using var hmac = new HMACSHA512();
+
+            user.PasswordSalt = hmac.Key;
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(plainTextPassword));
+
             await _userRepository.CreateUserAsync(user);
         }
+
 
         public async Task UpdateUserAsync(User user)
         {
@@ -92,11 +144,6 @@ namespace skillz_backend.Services
 
             await _userRepository.DeleteUserAsync(userId);
         }
-
-        // public async Task<User> GetAllUsersAsync()
-        // {
-        //     return await _userRepository.GetAllUsersAsync();
-        // }
 
 
     }

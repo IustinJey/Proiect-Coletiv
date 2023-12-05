@@ -11,10 +11,15 @@ namespace skillz_backend.Services
         Task<User> GetUserByIdAsync(int userId);
         Task<User> GetUserByUsernameAsync(string username);
         Task<User> GetUserByEmailAsync(string email);
-        Task CreateUserAsync(User user);
+        Task<List<User>> GetAllUsersAsync();
+        Task<List<Job>> GetJobsByUserIdAsync(int userId);
+        Task<List<ReviewUser>> GetReviewsByUserIdAsync(int userId);
+        Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId);
+        Task<List<UserBadge>> GetUserBadgesByUserIdAsync(int userId);
+        Task CreateUserWithPlainTextPasswordAsync(User user, string plainTextPassword);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int userId);
-        // Task GetAllUsersAsync();
+    
     }
 
 }
