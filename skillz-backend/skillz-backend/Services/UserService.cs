@@ -125,15 +125,28 @@ namespace skillz_backend.Services
         }
 
 
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(User user, string plainTextPassword)
         {
             if (user == null || user.UserId <= 0)
             {
                 throw new ArgumentException("Invalid user object or UserId.");
             }
 
+            var existingUserByEmail = await _userRepository.GetUserByEmailAsync(user.Email);
+
+            if (existingUserByEmail != null && existingUserByEmail.UserId != user.UserId)
+            {
+                throw new InvalidOperationException("A user with the same email address already exists.");
+            }
+
+            using var hmac = new HMACSHA512();
+
+            user.PasswordSalt = hmac.Key;
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(plainTextPassword));
+
             await _userRepository.UpdateUserAsync(user);
         }
+
 
         public async Task DeleteUserAsync(int userId)
         {

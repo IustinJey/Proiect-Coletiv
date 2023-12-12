@@ -28,7 +28,7 @@ namespace skillz_backend.controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+            if (await UserExists(registerDto.Email)) return BadRequest("Email is taken");
 
             using var hmac = new HMACSHA512();
 

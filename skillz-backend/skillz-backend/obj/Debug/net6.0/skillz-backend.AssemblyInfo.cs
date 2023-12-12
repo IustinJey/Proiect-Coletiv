@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("skillz-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+963b9e2eac34b8f7c2422d3ee080da799daa9fed")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39c04eba8757f2fc13ded1b95283aaee1beee669")]
 [assembly: System.Reflection.AssemblyProductAttribute("skillz-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("skillz-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

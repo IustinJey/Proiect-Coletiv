@@ -10,10 +10,12 @@ namespace skillz_backend.Services
     public class JobService : IJobService
     {
         private readonly IJobRepository _jobRepository;
+        private readonly IUserRepository _userRepository;
 
-        public JobService(IJobRepository jobRepository)
+        public JobService(IJobRepository jobRepository, IUserRepository userRepository)
         {
             _jobRepository = jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         public async Task<Job> GetJobByIdAsync(int jobId)
@@ -78,10 +80,21 @@ namespace skillz_backend.Services
                 throw new ArgumentException("ExperiencedYears should be a non-negative integer.");
             }
 
+            if (job.IdUser <= 0)
+            {
+                throw new ArgumentException("Id of User should be a non-negative integer.");
+            }
+
             var existingJobById = await _jobRepository.GetJobByIdAsync(job.IdJob);
             if (existingJobById != null)
             {
                 throw new InvalidOperationException("A job with the same JobId already exists.");
+            }
+
+            var existingUser = await _userRepository.GetUserByIdAsync(job.IdUser);
+            if (existingUser == null)
+            {
+                throw new InvalidOperationException($"User with Id {job.IdUser} does not exist.");
             }
 
             await _jobRepository.CreateJobAsync(job);
@@ -102,6 +115,17 @@ namespace skillz_backend.Services
             if (job.ExperiencedYears < 0)
             {
                 throw new ArgumentException("ExperiencedYears should be a non-negative integer.");
+            }
+
+            if (job.IdUser <= 0)
+            {
+                throw new ArgumentException("Id of User should be a non-negative integer.");
+            }
+
+            var existingUser = await _userRepository.GetUserByIdAsync(job.IdUser);
+            if (existingUser == null)
+            {
+                throw new InvalidOperationException($"User with Id {job.IdUser} does not exist.");
             }
 
             await _jobRepository.UpdateJobAsync(job);

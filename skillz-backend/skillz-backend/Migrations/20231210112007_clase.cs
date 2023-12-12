@@ -5,7 +5,7 @@
 namespace skillz_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class classes : Migration
+    public partial class clase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

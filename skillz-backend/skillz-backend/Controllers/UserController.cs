@@ -99,40 +99,10 @@ namespace skillz_backend.controllers
             return Ok(badges);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserWithPasswordDto userDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = new User
-            {
-                Username = userDto.Username.ToLower(),
-                Email = userDto.Email.ToLower(),
-                PhoneNumber = userDto.PhoneNumber.ToLower(),
-                Location = userDto.Location.ToLower(),
-            };
-
-            await _userService.CreateUserWithPlainTextPasswordAsync(user, userDto.Password);
-
-            // Returnează un UserDto pentru a nu expune informații sensibile precum parolele
-            var userDtoResponse = new UserDto
-            {
-                Username = userDto.Username,
-                Email = userDto.Email,
-                PhoneNumber = userDto.PhoneNumber,
-                Location = userDto.Location,
-            };
-
-            return CreatedAtAction(nameof(GetUserById), new { userId = user.UserId }, userDtoResponse);
-        }
-
 
 
         [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser(int userId, [FromBody] User user)
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] RegisterDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -146,12 +116,22 @@ namespace skillz_backend.controllers
                 return NotFound();
             }
 
-            // You can add additional validation or business logic here
+            existingUser.Username = userDto.Username.ToLower();
+            existingUser.Email = userDto.Email.ToLower();
+            existingUser.PhoneNumber = userDto.PhoneNumber.ToLower();
+            existingUser.Location = userDto.Location.ToLower();
 
-            user.UserId = userId; // Ensure the correct user ID is set
-            await _userService.UpdateUserAsync(user);
+            await _userService.UpdateUserAsync(existingUser, userDto.Password);
 
-            return Ok(user);
+            var updatedUserDto = new UserDto
+            {
+                Username = existingUser.Username,
+                Email = existingUser.Email,
+                PhoneNumber = existingUser.PhoneNumber,
+                Location = existingUser.Location
+            };
+
+            return Ok(updatedUserDto);
         }
 
         [HttpDelete("{userId}")]

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using skillz_backend.DTOs;
 using skillz_backend.models;
 using skillz_backend.Services;
 
@@ -93,9 +94,8 @@ namespace skillz_backend.controllers
 
             return Ok(jobs);
         }
-
         [HttpPost]
-        public async Task<IActionResult> CreateJob([FromBody] Job job)
+        public async Task<ActionResult<JobDto>> CreateJob([FromBody] JobDto jobDto)
         {
             if (!ModelState.IsValid)
             {
@@ -104,6 +104,15 @@ namespace skillz_backend.controllers
 
             try
             {
+                // Manual mapping from JobDto to Job
+                var job = new Job
+                {
+                    JobTitle = jobDto.JobTitle,
+                    Description = jobDto.Description,
+                    ExperiencedYears = jobDto.ExperiencedYears,
+                    IdUser = jobDto.IdUser
+                };
+
                 await _jobService.CreateJobAsync(job);
             }
             catch (Exception ex)
@@ -111,22 +120,22 @@ namespace skillz_backend.controllers
                 return BadRequest(ex.Message);
             }
 
-            return CreatedAtAction(nameof(GetJobById), new { jobId = job.IdJob }, job);
+            return new JobDto
+            {
+                JobTitle = jobDto.JobTitle,
+                Description = jobDto.Description,
+                ExperiencedYears = jobDto.ExperiencedYears,
+                IdUser = jobDto.IdUser
+            };
         }
 
         [HttpPut("{jobId}")]
-        public async Task<IActionResult> UpdateJob(int jobId, [FromBody] Job job)
+        public async Task<IActionResult> UpdateJob(int jobId, [FromBody] JobDto jobDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (jobId != job.IdJob)
-            {
-                return BadRequest("JobId in the request body does not match the JobId in the route.");
-            }
-
             var existingJob = await _jobService.GetJobByIdAsync(jobId);
 
             if (existingJob == null)
@@ -136,15 +145,22 @@ namespace skillz_backend.controllers
 
             try
             {
-                await _jobService.UpdateJobAsync(job);
+                // Manual mapping from JobDto to Job
+                existingJob.JobTitle = jobDto.JobTitle;
+                existingJob.Description = jobDto.Description;
+                existingJob.ExperiencedYears = jobDto.ExperiencedYears;
+                existingJob.IdUser = jobDto.IdUser;
+
+                await _jobService.UpdateJobAsync(existingJob);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
 
-            return Ok(job);
+            return Ok(jobDto);
         }
+
 
         [HttpDelete("{jobId}")]
         public async Task<IActionResult> DeleteJob(int jobId)
