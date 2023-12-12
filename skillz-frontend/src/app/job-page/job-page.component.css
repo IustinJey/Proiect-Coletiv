@@ -258,3 +258,47 @@
     margin-bottom: 50px;
 }
 /* Additional styles for other elements... */
+  /* Add these styles to your job-page.component.css file or equivalent */
+  
+  /* Add these styles to your job-page.component.css file or equivalent */
+  
+  .w-slider {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .w-slider-mask {
+        display: flex;  /* Ensure children are in a row */
+        transition: transform 0.5s ease;  /* Add a transition for smooth sliding */
+        height: 300px;
+        width: 100%;
+  }
+  
+  .slide {
+    min-width: 100%;
+    height: 100vh;  /* Adjust height as needed */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .w-slider-arrow-left,
+  .w-slider-arrow-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;  /* Adjust font size as needed */
+    color: white;  /* Adjust color as needed */
+    cursor: pointer;
+    z-index: 2;  /* Ensure arrows are above the slides */
+  }
+  
+  .w-slider-arrow-left {
+    left: 10px;
+  }
+  
+  .w-slider-arrow-right {
+    right: 10px;
+  }
+  
+
+  
