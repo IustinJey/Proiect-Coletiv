@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './job-page.component.css'
 })
 export class JobPageComponent {
-
+  images:string[] = [
+    'https://www.homelux.ro/blog/wp-content/uploads/2019/03/gradini-de-dimensiuni-mari8.jpg',
+    'https://www.homelux.ro/blog/wp-content/uploads/2019/03/gradini-de-dimensiuni-mari8.jpg',
+    'https://www.homelux.ro/blog/wp-content/uploads/2019/03/gradini-de-dimensiuni-mari8.jpg',
+  ];
 }
