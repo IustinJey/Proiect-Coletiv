@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using skillz_backend.DTOs;
 using skillz_backend.models;
 using skillz_backend.Services;
 
 namespace skillz_backend.controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("user/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -56,23 +59,50 @@ namespace skillz_backend.controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] User user)
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllUsers()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var users = await _userService.GetAllUsersAsync();
 
-            // You can add additional validation or business logic here
-
-            await _userService.CreateUserAsync(user);
-
-            return CreatedAtAction(nameof(GetUserById), new { userId = user.UserId }, user);
+            return Ok(users);
         }
 
+        [HttpGet("{userId}/jobs")]
+        public async Task<IActionResult> GetJobsByUserId(int userId)
+        {
+            var jobs = await _userService.GetJobsByUserIdAsync(userId);
+
+            return Ok(jobs);
+        }
+
+        [HttpGet("{userId}/reviews")]
+        public async Task<IActionResult> GetReviewsByUserId(int userId)
+        {
+            var reviews = await _userService.GetReviewsByUserIdAsync(userId);
+
+            return Ok(reviews);
+        }
+
+        [HttpGet("{userId}/certificates")]
+        public async Task<IActionResult> GetUserCertificatesByUserId(int userId)
+        {
+            var certificates = await _userService.GetUserCertificatesByUserIdAsync(userId);
+
+            return Ok(certificates);
+        }
+
+        [HttpGet("{userId}/badges")]
+        public async Task<IActionResult> GetUserBadgesByUserId(int userId)
+        {
+            var badges = await _userService.GetUserBadgesByUserIdAsync(userId);
+
+            return Ok(badges);
+        }
+
+
+
         [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser(int userId, [FromBody] User user)
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] RegisterDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -86,12 +116,22 @@ namespace skillz_backend.controllers
                 return NotFound();
             }
 
-            // You can add additional validation or business logic here
+            existingUser.Username = userDto.Username.ToLower();
+            existingUser.Email = userDto.Email.ToLower();
+            existingUser.PhoneNumber = userDto.PhoneNumber.ToLower();
+            existingUser.Location = userDto.Location.ToLower();
 
-            user.UserId = userId; // Ensure the correct user ID is set
-            await _userService.UpdateUserAsync(user);
+            await _userService.UpdateUserAsync(existingUser, userDto.Password);
 
-            return Ok(user);
+            var updatedUserDto = new UserDto
+            {
+                Username = existingUser.Username,
+                Email = existingUser.Email,
+                PhoneNumber = existingUser.PhoneNumber,
+                Location = existingUser.Location
+            };
+
+            return Ok(updatedUserDto);
         }
 
         [HttpDelete("{userId}")]
