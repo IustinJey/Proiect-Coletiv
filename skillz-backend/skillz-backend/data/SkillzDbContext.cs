@@ -15,6 +15,7 @@ namespace skillz_backend.data
         public DbSet<CertificatUser> CertificatsUser { get; set; }
         public DbSet<Badge> Badges { get; set; }
         public DbSet<UserBadge> UserBadges { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
 
 
         public SkillzDbContext(DbContextOptions<SkillzDbContext> options) : base(options)
@@ -65,6 +66,12 @@ namespace skillz_backend.data
                 .HasOne(ub => ub.Badge)
                 .WithMany(b => b.UserBadges)
                 .HasForeignKey(ub => ub.IdBadge);
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.ProviderUser)
+                .WithMany()
+                .HasForeignKey(b => b.ProviderUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }
