@@ -31,30 +31,45 @@ namespace skillz_backend.Repositories
             return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
-
-        // public async Task<User> GetAllUsersAsync()
-        // {
-        //     return await _dbContext.Users.ToListAsync();
-        // }
-
-        public async Task<IEnumerable<User>> GetUsersByAgeAsync(int age)
+          public async Task<List<User>> GetAllUsersAsync()
         {
-            return await _dbContext.Users.Where(u => u.Age == age).ToListAsync();
+            return await _dbContext.Users.ToListAsync();
         }
 
-        public async Task<IEnumerable<User>> GetUsersByLocationAsync(string location)
+        public async Task<List<Job>> GetJobsByUserIdAsync(int userId)
         {
-            return await _dbContext.Users.Where(u => u.Location == location).ToListAsync();
+            var user = await _dbContext.Users
+                .Include(u => u.Jobs)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
+
+            return user?.Jobs ?? new List<Job>();
         }
 
-        public async Task<IEnumerable<User>> GetUsersByPhoneNumberAsync(string phoneNumber)
+        public async Task<List<ReviewUser>> GetReviewsByUserIdAsync(int userId)
         {
-            return await _dbContext.Users.Where(u => u.PhoneNumber == phoneNumber).ToListAsync();
+            var user = await _dbContext.Users
+                .Include(u => u.ReviewsUser)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
+
+            return user?.ReviewsUser ?? new List<ReviewUser>();
         }
 
-        public async Task<IEnumerable<User>> GetVerifiedUsersAsync()
+        public async Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId)
         {
-            return await _dbContext.Users.Where(u => u.Verified).ToListAsync();
+            var user = await _dbContext.Users
+                .Include(u => u.UserCertificates)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
+
+            return user?.UserCertificates ?? new List<CertificatUser>();
+        }
+
+        public async Task<List<UserBadge>> GetUserBadgesByUserIdAsync(int userId)
+        {
+            var user = await _dbContext.Users
+                .Include(u => u.UserBadges)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
+
+            return user?.UserBadges ?? new List<UserBadge>();
         }
 
         public async Task CreateUserAsync(User user)
