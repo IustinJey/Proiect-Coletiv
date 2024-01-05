@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace skillz_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class clase : Migration
+    public partial class Migr1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,6 +57,34 @@ namespace skillz_backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    BookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientUserId = table.Column<int>(type: "int", nullable: false),
+                    ProviderUserId = table.Column<int>(type: "int", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.BookingId);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Users_ClientUserId",
+                        column: x => x.ClientUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Users_ProviderUserId",
+                        column: x => x.ProviderUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -194,6 +223,16 @@ namespace skillz_backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_ClientUserId",
+                table: "Bookings",
+                column: "ClientUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_ProviderUserId",
+                table: "Bookings",
+                column: "ProviderUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CertificatsUser_IdCertificate",
                 table: "CertificatsUser",
                 column: "IdCertificate");
@@ -237,6 +276,9 @@ namespace skillz_backend.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Bookings");
+
             migrationBuilder.DropTable(
                 name: "CertificatsUser");
 
