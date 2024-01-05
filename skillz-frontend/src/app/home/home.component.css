@@ -88,14 +88,19 @@ image {
     border:0px;
     height: 100px;
 }
+
+
 .footer-logo{
     margin-bottom:35px;
 }
 .footer-links-container{
+    flex: 1;
+    margin-right: 80px;
     display:flex;
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 80px;
+    
 }
 .footer-links-container2 {
     display: flex;
