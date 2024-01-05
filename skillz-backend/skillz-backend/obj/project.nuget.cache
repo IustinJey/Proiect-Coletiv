@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oH3x7o3hOAUmbTvIgqSQQ9zpimkE7/skRTdEltJW+gKLu85J1OWJxpVyQrzJBycsqoNScO+0Kd3+xm7fbELmmw==",
+  "dgSpecHash": "QEZDqIlqKP2Cc3VezrZr3mfCPjJ8OwQ+BuaQSvMsiccDgHJRPVq5qwBzuxPwUpq0wJMW84hg9AbBTWjMq/ontw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alina\\Desktop\\gombos\\Chestii\\SkillzGit\\Skillz2\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+  "projectFilePath": "C:\\Users\\Alina\\Desktop\\gombos\\Chestii\\SkillzGit\\Skillz4\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alina\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Alina\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
