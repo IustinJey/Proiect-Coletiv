@@ -5,6 +5,8 @@ using skillz_backend;
 using skillz_backend.data;
 using skillz_backend.Services;
 using skillz_backend.Repositories;
+using skillz_backend.Repositories.Interfaces;
+using skillz_backend.Services.Interfaces;
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -18,6 +20,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 // Configuration setup
 
 
