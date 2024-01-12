@@ -66,6 +66,7 @@ namespace skillz_backend.data
                 .HasOne(ub => ub.Badge)
                 .WithMany(b => b.UserBadges)
                 .HasForeignKey(ub => ub.IdBadge);
+
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.ProviderUser)
                 .WithMany()
