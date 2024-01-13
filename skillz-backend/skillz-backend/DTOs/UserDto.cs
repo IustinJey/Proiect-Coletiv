@@ -1,18 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace skillz_backend.DTOs
 {
+    // Represents data for user details.
     public class UserDto
     {
-        
+        // Gets or sets the username.
         public string Username { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Location { get; set; }
-        public string Token { get; set; }
 
+        // Gets or sets the email.
+        public string Email { get; set; }
+
+        // Gets or sets the phone number.
+        public string PhoneNumber { get; set; }
+
+        // Gets or sets the location.
+        public string Location { get; set; }
+
+        // Gets or sets the authentication token.
+        public string Token { get; set; }
     }
 }

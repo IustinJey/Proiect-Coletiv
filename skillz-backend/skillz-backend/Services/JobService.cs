@@ -1,6 +1,6 @@
-// JobService.cs
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using skillz_backend.Repositories;
 using skillz_backend.models;
@@ -14,6 +14,7 @@ namespace skillz_backend.Services
         private readonly IUserRepository _userRepository;
         private readonly IBookingRepository _bookingRepository;
 
+        // Constructor to initialize repositories
         public JobService(IJobRepository jobRepository, IUserRepository userRepository, IBookingRepository bookingRepository)
         {
             _jobRepository = jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
@@ -21,8 +22,10 @@ namespace skillz_backend.Services
             _bookingRepository = bookingRepository ?? throw new ArgumentNullException(nameof(bookingRepository));
         }
 
+        // Retrieves a job by its ID asynchronously
         public async Task<Job> GetJobByIdAsync(int jobId)
         {
+            // Validation for a positive JobId
             if (jobId <= 0)
             {
                 throw new ArgumentException("JobId should be a positive integer.");
@@ -31,13 +34,16 @@ namespace skillz_backend.Services
             return await _jobRepository.GetJobByIdAsync(jobId);
         }
 
+        // Retrieves all jobs asynchronously
         public async Task<List<Job>> GetAllJobsAsync()
         {
             return await _jobRepository.GetAllJobsAsync();
         }
 
+        // Retrieves jobs by title asynchronously
         public async Task<List<Job>> GetJobsByTitleAsync(string jobTitle)
         {
+            // Validation for non-null and non-empty job title
             if (string.IsNullOrEmpty(jobTitle))
             {
                 throw new ArgumentException("JobTitle cannot be null or empty.");
@@ -46,8 +52,10 @@ namespace skillz_backend.Services
             return await _jobRepository.GetJobsByTitleAsync(jobTitle);
         }
 
+        // Retrieves jobs by user ID asynchronously
         public async Task<List<Job>> GetJobsByUserAsync(int userId)
         {
+            // Validation for a positive UserID
             if (userId <= 0)
             {
                 throw new ArgumentException("UserId should be a positive integer.");
@@ -56,8 +64,10 @@ namespace skillz_backend.Services
             return await _jobRepository.GetJobsByUserAsync(userId);
         }
 
+        // Retrieves jobs by experience asynchronously
         public async Task<List<Job>> GetJobsByExperienceAsync(int experiencedYears)
         {
+            // Validation for non-negative experienced years
             if (experiencedYears < 0)
             {
                 throw new ArgumentException("ExperiencedYears should be a non-negative integer.");
@@ -66,8 +76,10 @@ namespace skillz_backend.Services
             return await _jobRepository.GetJobsByExperienceAsync(experiencedYears);
         }
 
+        // Creates a new job asynchronously
         public async Task CreateJobAsync(Job job)
         {
+            // Validation for non-null job object and required properties
             if (job == null)
             {
                 throw new ArgumentNullException(nameof(job), "Job object cannot be null.");
@@ -88,23 +100,28 @@ namespace skillz_backend.Services
                 throw new ArgumentException("Id of User should be a non-negative integer.");
             }
 
+            // Check if the job with the same JobId already exists
             var existingJobById = await _jobRepository.GetJobByIdAsync(job.IdJob);
             if (existingJobById != null)
             {
                 throw new InvalidOperationException("A job with the same JobId already exists.");
             }
 
+            // Check if the associated user exists
             var existingUser = await _userRepository.GetUserByIdAsync(job.IdUser);
             if (existingUser == null)
             {
                 throw new InvalidOperationException($"User with Id {job.IdUser} does not exist.");
             }
 
+            // Create the job
             await _jobRepository.CreateJobAsync(job);
         }
 
+        // Updates an existing job asynchronously
         public async Task UpdateJobAsync(Job job)
         {
+            // Validation for a valid job object and JobId
             if (job == null || job.IdJob <= 0)
             {
                 throw new ArgumentException("Invalid job object or JobId.");
@@ -125,28 +142,33 @@ namespace skillz_backend.Services
                 throw new ArgumentException("Id of User should be a non-negative integer.");
             }
 
+            // Check if the associated user exists
             var existingUser = await _userRepository.GetUserByIdAsync(job.IdUser);
             if (existingUser == null)
             {
                 throw new InvalidOperationException($"User with Id {job.IdUser} does not exist.");
             }
 
+            // Update the job
             await _jobRepository.UpdateJobAsync(job);
         }
 
+        // Deletes a job by its ID asynchronously
         public async Task DeleteJobAsync(int jobId)
         {
+            // Validation for a positive JobId
             if (jobId <= 0)
             {
                 throw new ArgumentException("JobId should be a positive integer.");
             }
 
+            // Delete the job
             await _jobRepository.DeleteJobAsync(jobId);
         }
 
+        // Filters jobs based on title, date, and location asynchronously
         public async Task<List<Job>> FilterJobsAsync(string jobTitle, DateTime date, string location)
         {
-
             var allJobs = await _jobRepository.GetAllJobsAsync();
             var allBookings = await _bookingRepository.GetAllBookingsAsync();
 
@@ -154,6 +176,7 @@ namespace skillz_backend.Services
 
             if (!string.IsNullOrEmpty(jobTitle))
             {
+                // Filter jobs by title
                 filteredJobs = filteredJobs
                     .Where(job => job.JobTitle?.Equals(jobTitle, StringComparison.OrdinalIgnoreCase) == true)
                     .ToList();
@@ -161,14 +184,15 @@ namespace skillz_backend.Services
 
             if (date != default)
             {
+                // Filter jobs based on available dates
                 filteredJobs = filteredJobs
                     .Where(job =>
                     {
-                        var jobIdUser = job.IdUser; // Get IdUser from the job
+                        var jobIdUser = job.IdUser;
                         var bookingsForJob = allBookings
                             .Where(booking =>
                                 booking.DateTime.Date == date.Date &&
-                                (booking.ProviderUserId == jobIdUser) && // Use ProviderUserId
+                                (booking.ProviderUserId == jobIdUser) &&
                                 booking.Status == BookingStatus.Accepted);
 
                         return !bookingsForJob.Any();
@@ -176,15 +200,12 @@ namespace skillz_backend.Services
                     .ToList();
             }
 
-
             if (!string.IsNullOrEmpty(location))
             {
+                // Filter jobs based on location
                 var lowerCaseLocation = location.ToLower();
-
-                // Get all unique IdUser values from filtered jobs
                 var userIds = filteredJobs.Select(job => job.IdUser).Distinct();
 
-                // Filter out jobs where the associated User's Location matches the specified location
                 var filteredJobsWithLocation = new List<Job>();
 
                 foreach (var userId in userIds)
@@ -193,7 +214,6 @@ namespace skillz_backend.Services
 
                     if (userLocation != null && userLocation.ToLower() == lowerCaseLocation)
                     {
-                        // If the location matches, add the corresponding jobs to the result
                         filteredJobsWithLocation.AddRange(filteredJobs.Where(job => job.IdUser == userId));
                     }
                 }
@@ -201,11 +221,7 @@ namespace skillz_backend.Services
                 filteredJobs = filteredJobsWithLocation.ToList();
             }
 
-
-
             return filteredJobs;
-
         }
-
     }
 }

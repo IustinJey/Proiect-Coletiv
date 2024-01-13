@@ -1,26 +1,28 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace skillz_backend.DTOs
 {
+    // Represents data for user registration.
     public class RegisterDto
     {
+        // Gets or sets the username.
         [Required]
         public string Username { get; set; }
 
+        // Gets or sets the password.
         [Required]
         public string Password { get; set; }
-    
+
+        // Gets or sets the email.
         [Required]
         [EmailAddress]
         public string Email { get; set; }
 
+        // Gets or sets the phone number.
         [Required]
         public string PhoneNumber { get; set; }
 
+        // Gets or sets the location.
         [Required]
         public string Location { get; set; }
     }
