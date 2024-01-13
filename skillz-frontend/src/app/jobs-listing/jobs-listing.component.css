@@ -95,7 +95,7 @@ image {
 
 
 .button-3 {
-    background-color: lightgreen;
+    background-color:  #00ef98;
     height: 55px;
     display: block;
     width: 380px;
@@ -107,16 +107,15 @@ image {
     box-sizing: border-box;
     font-family: 'Poppins';
     font-weight: 500;
-    color: #999;
+    color: white;
     text-align: center;
-    font-weight: bold;
-    font-size: 150%;
     transition: background-color 0.3s;
 }
 
 .button-3:hover {
-    background-color: limegreen; 
-    color: #333; 
+    background-color:#00ef98; 
+    filter: brightness(85%);
+    color: white; 
 }
 
 .paragraph-5 {
@@ -138,26 +137,47 @@ li {
 /* end of the form and start of the lists */
 
 .job-box {
+    display: block;
     list-style-type: none;
     box-sizing: border-box;
-    background-color: limegreen;
     border-radius:20px;
     position: relative;
+    overflow: hidden;
     height: 180px;
     width: 100%;
     margin-left: 0%;
     margin-bottom: 8px;
+    text-decoration: none;
+}
+
+.background-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire box */
+    filter: blur(1px);
+}
+
+.background-image-grey {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire box */
+    position: absolute;
 }
 
 .profileimage1{
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow:hidden;
     position: absolute;
     top:0;
     right:0;
     margin: 20px;  
+    object-fit: cover;
 }
 
 .job-type-logo{
@@ -174,7 +194,7 @@ li {
     margin: 20px; 
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 15px;
+    font-size: 16px;
     height: 1.5em;
     color: #f5f6f7;
 }
@@ -185,7 +205,7 @@ li {
     margin: 20px; 
     font-family: 'Poppins';
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
     height: 1.5em;
     color: #f5f6f7;
 }
@@ -197,7 +217,7 @@ li {
     margin: 20px;
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 15px;
+    font-size: 16px;
     height: 1.5em;
     color: #f5f6f7;
 
@@ -228,7 +248,7 @@ li {
     left: 10%;
     font-family: 'Poppins';
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
     height: 1.5em;
     color: #f5f6f7;
 
@@ -250,266 +270,9 @@ li {
     left: 10%;
     font-family: 'Poppins';
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
     height: 1.5em;
     color: #f5f6f7;
-}
-
-.badge-logo {
-    position: absolute;
-    margin: 20px;
-    right: 0;
-    top:50%;
-}
-
-/* A doua lista  */
-
-.job-box1 {
-    list-style-type: none;
-    box-sizing: border-box;
-    background-color: limegreen;
-    border-radius:20px;
-    position: relative;
-    height: 180px;
-    width: 100%;
-    margin-bottom: 8px;
-}
-
-.profileimage2{
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    overflow:hidden;
-    position: absolute;
-    top:0;
-    right:0;
-    margin: 20px;  
-}
-
-.job-type-logo1{
-    position: absolute;
-    top:0;
-    left:0;
-    margin: 20px;
-}
- 
-.job-title1{
-    position:absolute;
-    top: 0;
-    left: 10%;
-    margin: 20px; 
-    font-family: 'Poppins';
-    font-weight: 600;
-    font-size: 15px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.rating2{
-    position:absolute;
-    top: 12%;
-    margin: 20px; 
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.username-profile1{
-    position: absolute;
-    top: 30%;
-    left: 2%;
-    margin: 20px;
-    font-family: 'Poppins';
-    font-weight: 600;
-    font-size: 15px;
-    height: 1.5em;
-    color: #f5f6f7;
-
-}
-
-.verified-image1 {
-    position: absolute;
-    top: 28%;
-    left: 35%;
-    margin: 20px;
-    width: 30px;
-    height: 30px;
-}
-
-.experience-logo1 {
-    position: absolute;
-    margin: 20px;
-    width: 20px;
-    height: 20px;
-    top: 47%;
-    left: 0;
-}
-
-.experience1 {
-    position: absolute;
-    margin: 20px;
-    top: 49%;
-    left: 10%;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    height: 1.5em;
-    color: #f5f6f7;
-
-}
-
-.certification-logo1 {
-    position: absolute;
-    margin: 20px;
-    width: 20px;
-    height: 20px;
-    top: 65%;
-    left: 0;
-}
-
-.certification-status1 {
-    position: absolute;
-    margin: 20px;
-    top: 67%;
-    left: 10%;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.badge-logo1 {
-    position: absolute;
-    margin: 20px;
-    right: 0;
-    top:50%;
-}
-
-/* Lista a treia */
-
-.job-box2 {
-    list-style-type: none;
-    box-sizing: border-box;
-    background-color: limegreen;
-    border-radius:20px;
-    position: relative;
-    height: 180px;
-    width: 100%;
-    margin-bottom: 8px;
-}
-
-.profileimage3{
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    overflow:hidden;
-    position: absolute;
-    top:0;
-    right:0;
-    margin: 20px;  
-} 
-
-.job-type-logo2{
-    position: absolute;
-    top:0;
-    left:0;
-    margin: 20px;
-}
- 
-.job-title2{
-    position:absolute;
-    top: 0;
-    left: 10%;
-    margin: 20px; 
-    font-family: 'Poppins';
-    font-weight: 600;
-    font-size: 15px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.rating3{
-    position:absolute;
-    top: 12%;
-    margin: 20px; 
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.username-profile2{
-    position: absolute;
-    top: 30%;
-    left: 2%;
-    margin: 20px;
-    font-family: 'Poppins';
-    font-weight: 600;
-    font-size: 15px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.verified-image2 {
-    position: absolute;
-    top: 28%;
-    left: 35%;
-    margin: 20px;
-    width: 30px;
-    height: 30px;
-}
-
-.experience-logo2 {
-    position: absolute;
-    margin: 20px;
-    width: 20px;
-    height: 20px;
-    top: 47%;
-    left: 0;
-}
-
-.experience2 {
-    position: absolute;
-    margin: 20px;
-    top: 49%;
-    left: 10%;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.certification-logo2 {
-    position: absolute;
-    margin: 20px;
-    width: 20px;
-    height: 20px;
-    top: 65%;
-    left: 0;
-}
-
-.certification-status2 {
-    position: absolute;
-    margin: 20px;
-    top: 67%;
-    left: 10%;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    height: 1.5em;
-    color: #f5f6f7;
-}
-
-.badge-logo2 {
-    position: absolute;
-    margin: 20px;
-    right: 0;
-    top:50%;
 }
 
 
@@ -541,7 +304,6 @@ li {
 
 
 .footer{
-    margin-top: 0px;
     padding-left:20px;
     padding-right:20px;
     padding-top: 60px;
