@@ -17,7 +17,7 @@ namespace skillz_backend.Services
         Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId);
         Task<List<UserBadge>> GetUserBadgesByUserIdAsync(int userId);
         Task CreateUserWithPlainTextPasswordAsync(User user, string plainTextPassword);
-        Task UpdateUserAsync(User user, string plainTextPassword);
+        Task UpdateUserAsync(User updatedUser, string plainTextPassword);
         Task DeleteUserAsync(int userId);
     
     }
