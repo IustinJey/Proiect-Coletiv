@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using skillz_backend.data;
 using skillz_backend.models;
 using skillz_backend.Repositories;
+using skillz_backend.Repositories.Interfaces;
 
 namespace skillz_backend.Services
 {
@@ -157,7 +158,6 @@ namespace skillz_backend.Services
 
             await _userRepository.DeleteUserAsync(userId);
         }
-
 
     }
 }

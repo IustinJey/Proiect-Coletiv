@@ -1,6 +1,7 @@
 ﻿// Job.cs
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace skillz_backend.models
 {
@@ -13,6 +14,7 @@ namespace skillz_backend.models
         public int ExperiencedYears { get; set; }
         public List<JobImage> Images { get; set; }
         public int IdUser { get; set; }
+        [JsonIgnore] 
         public User User { get; set; }
         public List<ReviewJob> ReviewsJob { get; set; }
     }

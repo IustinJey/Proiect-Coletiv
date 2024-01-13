@@ -31,10 +31,17 @@ namespace skillz_backend.Repositories
             return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
-          public async Task<List<User>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             return await _dbContext.Users.ToListAsync();
         }
+
+        public async Task<string> GetUserLocationByIdAsync(int userId)
+        {
+            var user = await _dbContext.Users.FindAsync(userId);
+            return user?.Location;
+        }
+
 
         public async Task<List<Job>> GetJobsByUserIdAsync(int userId)
         {

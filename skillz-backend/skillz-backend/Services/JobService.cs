@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using skillz_backend.Repositories;
 using skillz_backend.models;
+using skillz_backend.Repositories.Interfaces;
 
 namespace skillz_backend.Services
 {
@@ -11,11 +12,13 @@ namespace skillz_backend.Services
     {
         private readonly IJobRepository _jobRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IBookingRepository _bookingRepository;
 
-        public JobService(IJobRepository jobRepository, IUserRepository userRepository)
+        public JobService(IJobRepository jobRepository, IUserRepository userRepository, IBookingRepository bookingRepository)
         {
             _jobRepository = jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _bookingRepository = bookingRepository ?? throw new ArgumentNullException(nameof(bookingRepository));
         }
 
         public async Task<Job> GetJobByIdAsync(int jobId)
@@ -140,5 +143,69 @@ namespace skillz_backend.Services
 
             await _jobRepository.DeleteJobAsync(jobId);
         }
+
+        public async Task<List<Job>> FilterJobsAsync(string jobTitle, DateTime date, string location)
+        {
+
+            var allJobs = await _jobRepository.GetAllJobsAsync();
+            var allBookings = await _bookingRepository.GetAllBookingsAsync();
+
+            var filteredJobs = allJobs.ToList();
+
+            if (!string.IsNullOrEmpty(jobTitle))
+            {
+                filteredJobs = filteredJobs
+                    .Where(job => job.JobTitle?.Equals(jobTitle, StringComparison.OrdinalIgnoreCase) == true)
+                    .ToList();
+            }
+
+            if (date != default)
+            {
+                filteredJobs = filteredJobs
+                    .Where(job =>
+                    {
+                        var jobIdUser = job.IdUser; // Get IdUser from the job
+                        var bookingsForJob = allBookings
+                            .Where(booking =>
+                                booking.DateTime.Date == date.Date &&
+                                (booking.ProviderUserId == jobIdUser) && // Use ProviderUserId
+                                booking.Status == BookingStatus.Accepted);
+
+                        return !bookingsForJob.Any();
+                    })
+                    .ToList();
+            }
+
+
+            if (!string.IsNullOrEmpty(location))
+            {
+                var lowerCaseLocation = location.ToLower();
+
+                // Get all unique IdUser values from filtered jobs
+                var userIds = filteredJobs.Select(job => job.IdUser).Distinct();
+
+                // Filter out jobs where the associated User's Location matches the specified location
+                var filteredJobsWithLocation = new List<Job>();
+
+                foreach (var userId in userIds)
+                {
+                    var userLocation = await _userRepository.GetUserLocationByIdAsync(userId);
+
+                    if (userLocation != null && userLocation.ToLower() == lowerCaseLocation)
+                    {
+                        // If the location matches, add the corresponding jobs to the result
+                        filteredJobsWithLocation.AddRange(filteredJobs.Where(job => job.IdUser == userId));
+                    }
+                }
+
+                filteredJobs = filteredJobsWithLocation.ToList();
+            }
+
+
+
+            return filteredJobs;
+
+        }
+
     }
 }

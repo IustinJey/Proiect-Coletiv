@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 namespace skillz_backend.DTOs
 {
     public class BookingDto
-{
-    [Required]
-    public int ClientUserId { get; set; }
+    {
+        [Required]
+        public int ClientUserId { get; set; }
 
-    [Required]
-    public int ProviderUserId { get; set; }
+        [Required]
+        public int ProviderUserId { get; set; }
 
-    [Required]
-    public DateTime DateTime { get; set; }
+        [Required]
+        public DateTime DateTime { get; set; }
 
-    public string Details { get; set; }
+        public string Details { get; set; }
 
-    [Required]
-    public string Status { get; set; }
-}
+        [Required]
+        public string Status { get; set; }
+    }
 
 }
