@@ -14,5 +14,6 @@ namespace skillz_backend.Services
         Task CreateJobAsync(Job job);
         Task UpdateJobAsync(Job job);
         Task DeleteJobAsync(int jobId);
+        Task<List<Job>> FilterJobsAsync(string jobTitle, DateTime date, string location);
     }
 }

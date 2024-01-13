@@ -11,6 +11,7 @@ namespace skillz_backend.Repositories
         Task<User> GetUserByIdAsync(int userId);
         Task<User> GetUserByUsernameAsync(string username);
         Task<User> GetUserByEmailAsync(string email);
+        Task<string> GetUserLocationByIdAsync(int userId);
         Task<List<User>> GetAllUsersAsync(); 
         Task<List<Job>> GetJobsByUserIdAsync(int userId);
         Task<List<ReviewUser>> GetReviewsByUserIdAsync(int userId);

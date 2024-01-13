@@ -181,5 +181,19 @@ namespace skillz_backend.controllers
 
             return NoContent();
         }
+
+         [HttpGet("filter")]
+        public async Task<ActionResult<List<Job>>> FilterJobsAsync([FromQuery] string jobTitle, [FromQuery] DateTime date, [FromQuery] string location)
+        {
+            try
+            {
+                var filteredJobs = await _jobService.FilterJobsAsync(jobTitle, date, location);
+                return Ok(filteredJobs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
     }
 }

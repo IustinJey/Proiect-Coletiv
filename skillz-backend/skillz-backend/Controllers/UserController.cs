@@ -102,7 +102,7 @@ namespace skillz_backend.controllers
 
 
         [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser(int userId, [FromBody] RegisterDto userDto)
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserUpdateDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -120,15 +120,21 @@ namespace skillz_backend.controllers
             existingUser.Email = userDto.Email.ToLower();
             existingUser.PhoneNumber = userDto.PhoneNumber.ToLower();
             existingUser.Location = userDto.Location.ToLower();
+            existingUser.Age = userDto.Age;
+            existingUser.Verified = userDto.Verified;
+            existingUser.ProfilePicture = userDto.ProfilePicture;
 
             await _userService.UpdateUserAsync(existingUser, userDto.Password);
 
-            var updatedUserDto = new UserDto
+            var updatedUserDto = new UserUpdateDto
             {
                 Username = existingUser.Username,
                 Email = existingUser.Email,
                 PhoneNumber = existingUser.PhoneNumber,
-                Location = existingUser.Location
+                Location = existingUser.Location,
+                Age = existingUser.Age,
+                Verified = existingUser.Verified,
+                ProfilePicture = existingUser.ProfilePicture
             };
 
             return Ok(updatedUserDto);
