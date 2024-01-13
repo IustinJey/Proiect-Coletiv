@@ -8,11 +8,15 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+  isAuthenticated() {
+    return this.isAuth;
+  }
   private apiUrl = 'https://localhost:7062/Authentication'; // backend url
   private tokenKey = 'auth_token'; // key to store the token in local storage
   private usernameKey = 'auth_username'; // key to store the username in local storage
   private emailKey = 'auth_email'; // key to store the email in local storage
-
+  private userID= 'user_id';
+  private isAuth = false
   constructor(private http: HttpClient) {}
 
   register(user: any): Observable<any> {
@@ -20,7 +24,10 @@ export class AuthService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.post<any>(`${this.apiUrl}/register`, user, { headers });
+    return this.http.post<any>(`${this.apiUrl}/register`, user, { headers })
+    .pipe(
+      tap(response => this.handleAuthentication(response))
+    );
   }
 
   login(user: any): Observable<any> {
@@ -32,6 +39,7 @@ export class AuthService {
 
   logout(): Observable<any> {
     // Implement logout logic here, if needed
+    this.isAuth = false;
     return this.http.post<any>(`${this.apiUrl}/logout`, {});
   }
 
@@ -48,11 +56,18 @@ export class AuthService {
     if (response && response.email) {
       localStorage.setItem(this.emailKey, response.email);
     }
+    if(response)
+      this.isAuth = true;
   }
 
   getToken(): string | null {
     // Retrieve the stored token from local storage
     return localStorage.getItem(this.tokenKey);
+  }
+
+  getUserId(): string | null {
+    // Retrieve the stored token from local storage
+    return localStorage.getItem(this.userID);
   }
 
   getUsername(): string | null {
