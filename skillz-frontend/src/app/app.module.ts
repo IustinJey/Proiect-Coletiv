@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { JobsListingComponent } from './jobs-listing/jobs-listing.component';
 import { JobPageComponent } from './job-page/job-page.component';
 import { MatIconModule } from '@angular/material/icon';
+import { JobPostComponent } from './job-post/job-post.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MatIconModule } from '@angular/material/icon';
     HomeComponent,
     ProfileComponent,
     JobsListingComponent,
-    JobPageComponent
+    JobPageComponent,
+    JobPostComponent
   ],
   imports: [
     HttpClientModule,
