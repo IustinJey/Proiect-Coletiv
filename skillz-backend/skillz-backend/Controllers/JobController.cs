@@ -1,4 +1,3 @@
-// JobController.cs
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,14 +14,17 @@ namespace skillz_backend.controllers
     {
         private readonly IJobService _jobService;
 
+        // Constructor to inject IJobService dependency
         public JobController(IJobService jobService)
         {
             _jobService = jobService ?? throw new ArgumentNullException(nameof(jobService));
         }
 
+        // Retrieves a job by ID
         [HttpGet("{jobId}")]
         public async Task<IActionResult> GetJobById(int jobId)
         {
+            // Validation for a positive JobId
             if (jobId <= 0)
             {
                 return BadRequest("Invalid JobId. It should be a positive integer.");
@@ -38,6 +40,7 @@ namespace skillz_backend.controllers
             return Ok(job);
         }
 
+        // Retrieves all jobs
         [HttpGet("all")]
         public async Task<IActionResult> GetAllJobs()
         {
@@ -46,9 +49,11 @@ namespace skillz_backend.controllers
             return Ok(jobs);
         }
 
+        // Retrieves jobs by title
         [HttpGet("title/{jobTitle}")]
         public async Task<IActionResult> GetJobsByTitle(string jobTitle)
         {
+            // Validation for a non-null and non-empty jobTitle
             if (string.IsNullOrEmpty(jobTitle))
             {
                 return BadRequest("JobTitle cannot be null or empty.");
@@ -64,9 +69,11 @@ namespace skillz_backend.controllers
             return Ok(jobs);
         }
 
+        // Retrieves jobs by user ID
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetJobsByUser(int userId)
         {
+            // Validation for a positive UserId
             if (userId <= 0)
             {
                 return BadRequest("Invalid UserId. It should be a positive integer.");
@@ -82,9 +89,11 @@ namespace skillz_backend.controllers
             return Ok(jobs);
         }
 
+        // Retrieves jobs by experience
         [HttpGet("experience/{experiencedYears}")]
         public async Task<IActionResult> GetJobsByExperience(int experiencedYears)
         {
+            // Validation for a non-negative experiencedYears
             if (experiencedYears < 0)
             {
                 return BadRequest("ExperiencedYears should be a non-negative integer.");
@@ -94,9 +103,12 @@ namespace skillz_backend.controllers
 
             return Ok(jobs);
         }
+
+        // Creates a new job
         [HttpPost]
         public async Task<ActionResult<JobDto>> CreateJob([FromBody] JobDto jobDto)
         {
+            // Validate the ModelState
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -129,13 +141,16 @@ namespace skillz_backend.controllers
             };
         }
 
+        // Updates an existing job
         [HttpPut("{jobId}")]
         public async Task<IActionResult> UpdateJob(int jobId, [FromBody] JobDto jobDto)
         {
+            // Validate the ModelState
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             var existingJob = await _jobService.GetJobByIdAsync(jobId);
 
             if (existingJob == null)
@@ -161,10 +176,11 @@ namespace skillz_backend.controllers
             return Ok(jobDto);
         }
 
-
+        // Deletes a job by ID
         [HttpDelete("{jobId}")]
         public async Task<IActionResult> DeleteJob(int jobId)
         {
+            // Validation for a positive JobId
             if (jobId <= 0)
             {
                 return BadRequest("Invalid JobId. It should be a positive integer.");
@@ -182,7 +198,8 @@ namespace skillz_backend.controllers
             return NoContent();
         }
 
-         [HttpGet("filter")]
+        // Filters jobs based on jobTitle, date, and location
+        [HttpGet("filter")]
         public async Task<ActionResult<List<Job>>> FilterJobsAsync([FromQuery] string jobTitle, [FromQuery] DateTime date, [FromQuery] string location)
         {
             try

@@ -15,14 +15,17 @@ namespace skillz_backend.Controllers
     {
         private readonly IBookingService _bookingService;
 
+        // Constructor to inject IBookingService dependency
         public BookingController(IBookingService bookingService)
         {
             _bookingService = bookingService ?? throw new ArgumentNullException(nameof(bookingService));
         }
 
+        // Retrieves a booking by ID
         [HttpGet("{bookingId}")]
         public async Task<IActionResult> GetBookingById(int bookingId)
         {
+            // Validation for a positive BookingId
             if (bookingId <= 0)
             {
                 return BadRequest("Invalid BookingId. It should be a positive integer.");
@@ -38,6 +41,7 @@ namespace skillz_backend.Controllers
             return Ok(booking);
         }
 
+        // Retrieves all bookings
         [HttpGet("all")]
         public async Task<IActionResult> GetAllBookings()
         {
@@ -46,9 +50,11 @@ namespace skillz_backend.Controllers
             return Ok(bookings);
         }
 
+        // Retrieves bookings by client ID
         [HttpGet("client/{clientId}")]
         public async Task<IActionResult> GetBookingsByClient(int clientId)
         {
+            // Validation for a positive ClientId
             if (clientId <= 0)
             {
                 return BadRequest("Invalid ClientId. It should be a positive integer.");
@@ -64,9 +70,11 @@ namespace skillz_backend.Controllers
             return Ok(bookings);
         }
 
+        // Retrieves bookings by provider ID
         [HttpGet("provider/{providerId}")]
         public async Task<IActionResult> GetBookingsByProvider(int providerId)
         {
+            // Validation for a positive ProviderId
             if (providerId <= 0)
             {
                 return BadRequest("Invalid ProviderId. It should be a positive integer.");
@@ -82,9 +90,11 @@ namespace skillz_backend.Controllers
             return Ok(bookings);
         }
 
+        // Retrieves bookings by status
         [HttpGet("status/{status}")]
         public async Task<IActionResult> GetBookingsByStatus(string status)
         {
+            // Validation for a non-null and non-empty status
             if (string.IsNullOrEmpty(status))
             {
                 return BadRequest("Status cannot be null or empty.");
@@ -100,9 +110,11 @@ namespace skillz_backend.Controllers
             return Ok(bookings);
         }
 
+        // Creates a new booking
         [HttpPost]
         public async Task<ActionResult<BookingDto>> CreateBooking([FromBody] BookingDto bookingDto)
         {
+            // Validate the ModelState
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -117,7 +129,7 @@ namespace skillz_backend.Controllers
                     ProviderUserId = bookingDto.ProviderUserId,
                     DateTime = bookingDto.DateTime,
                     Details = bookingDto.Details,
-                    Status = Enum.Parse<BookingStatus>(bookingDto.Status, true) // Ignoră case sensitivity
+                    Status = Enum.Parse<BookingStatus>(bookingDto.Status, true) // Ignore case sensitivity
                 };
 
                 await _bookingService.CreateBookingAsync(booking);
@@ -137,9 +149,11 @@ namespace skillz_backend.Controllers
             };
         }
 
+        // Updates an existing booking
         [HttpPut("{bookingId}")]
         public async Task<IActionResult> UpdateBooking(int bookingId, [FromBody] BookingDto bookingDto)
         {
+            // Validate the ModelState
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -159,7 +173,7 @@ namespace skillz_backend.Controllers
                 existingBooking.ProviderUserId = bookingDto.ProviderUserId;
                 existingBooking.DateTime = bookingDto.DateTime;
                 existingBooking.Details = bookingDto.Details;
-                existingBooking.Status = Enum.Parse<BookingStatus>(bookingDto.Status, true); // Ignoră case sensitivity
+                existingBooking.Status = Enum.Parse<BookingStatus>(bookingDto.Status, true); // Ignore case sensitivity
 
                 await _bookingService.UpdateBookingAsync(existingBooking);
             }
@@ -171,9 +185,11 @@ namespace skillz_backend.Controllers
             return Ok(bookingDto);
         }
 
+        // Deletes a booking by ID
         [HttpDelete("{bookingId}")]
         public async Task<IActionResult> DeleteBooking(int bookingId)
         {
+            // Validation for a positive BookingId
             if (bookingId <= 0)
             {
                 return BadRequest("Invalid BookingId. It should be a positive integer.");
@@ -191,5 +207,4 @@ namespace skillz_backend.Controllers
             return NoContent();
         }
     }
-
 }

@@ -1,16 +1,34 @@
 using System.ComponentModel.DataAnnotations;
-using skillz_backend.models;
 
-public class UserUpdateDto
+namespace skillz_backend.models
 {
-    public string Username { get; set; }
-    [Required]
-    public string Password { get; set; }
-    [EmailAddress]
-    public string Email { get; set; }
-    public int Age { get; set; }
-    public string PhoneNumber { get; set; }
-    public string Location { get; set; }
-    public bool Verified { get; set; }
-    public string ProfilePicture { get; set; }
+    // Represents data for updating user information.
+    public class UserUpdateDto
+    {
+        // Gets or sets the username.
+        public string Username { get; set; }
+
+        // Gets or sets the password. (Required)
+        [Required]
+        public string Password { get; set; }
+
+        // Gets or sets the email. (EmailAddress)
+        [EmailAddress]
+        public string Email { get; set; }
+
+        // Gets or sets the age.
+        public int Age { get; set; }
+
+        // Gets or sets the phone number.
+        public string PhoneNumber { get; set; }
+
+        // Gets or sets the location.
+        public string Location { get; set; }
+
+        // Gets or sets the verification status.
+        public bool Verified { get; set; }
+
+        // Gets or sets the profile picture URL.
+        public string ProfilePicture { get; set; }
+    }
 }
