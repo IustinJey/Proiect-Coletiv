@@ -15,11 +15,13 @@ namespace skillz_backend.controllers
     {
         private readonly IUserService _userService;
 
+        // Constructor to inject IUserService dependency
         public UserController(IUserService userService)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
+        // Retrieves a user by ID
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUserById(int userId)
         {
@@ -33,6 +35,7 @@ namespace skillz_backend.controllers
             return Ok(user);
         }
 
+        // Retrieves a user by username
         [HttpGet("username/{username}")]
         public async Task<IActionResult> GetUserByUsername(string username)
         {
@@ -46,6 +49,7 @@ namespace skillz_backend.controllers
             return Ok(user);
         }
 
+        // Retrieves a user by email address
         [HttpGet("email/{email}")]
         public async Task<IActionResult> GetUserByEmail(string email)
         {
@@ -59,6 +63,7 @@ namespace skillz_backend.controllers
             return Ok(user);
         }
 
+        // Retrieves all users
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -67,6 +72,7 @@ namespace skillz_backend.controllers
             return Ok(users);
         }
 
+        // Retrieves jobs associated with a user ID
         [HttpGet("{userId}/jobs")]
         public async Task<IActionResult> GetJobsByUserId(int userId)
         {
@@ -75,6 +81,7 @@ namespace skillz_backend.controllers
             return Ok(jobs);
         }
 
+        // Retrieves reviews associated with a user ID
         [HttpGet("{userId}/reviews")]
         public async Task<IActionResult> GetReviewsByUserId(int userId)
         {
@@ -83,6 +90,7 @@ namespace skillz_backend.controllers
             return Ok(reviews);
         }
 
+        // Retrieves certificates associated with a user ID
         [HttpGet("{userId}/certificates")]
         public async Task<IActionResult> GetUserCertificatesByUserId(int userId)
         {
@@ -91,6 +99,7 @@ namespace skillz_backend.controllers
             return Ok(certificates);
         }
 
+        // Retrieves badges associated with a user ID
         [HttpGet("{userId}/badges")]
         public async Task<IActionResult> GetUserBadgesByUserId(int userId)
         {
@@ -99,16 +108,17 @@ namespace skillz_backend.controllers
             return Ok(badges);
         }
 
-
-
+        // Updates an existing user
         [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser(int userId, [FromBody] RegisterDto userDto)
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserUpdateDto userDto)
         {
+            // Validate the ModelState
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            // Retrieve the existing user
             var existingUser = await _userService.GetUserByIdAsync(userId);
 
             if (existingUser == null)
@@ -116,27 +126,38 @@ namespace skillz_backend.controllers
                 return NotFound();
             }
 
+            // Update user properties with values from the DTO
             existingUser.Username = userDto.Username.ToLower();
             existingUser.Email = userDto.Email.ToLower();
             existingUser.PhoneNumber = userDto.PhoneNumber.ToLower();
             existingUser.Location = userDto.Location.ToLower();
+            existingUser.Age = userDto.Age;
+            existingUser.Verified = userDto.Verified;
+            existingUser.ProfilePicture = userDto.ProfilePicture;
 
+            // Update the user asynchronously, including the password
             await _userService.UpdateUserAsync(existingUser, userDto.Password);
 
-            var updatedUserDto = new UserDto
+            // Create a new DTO with updated user information
+            var updatedUserDto = new UserUpdateDto
             {
                 Username = existingUser.Username,
                 Email = existingUser.Email,
                 PhoneNumber = existingUser.PhoneNumber,
-                Location = existingUser.Location
+                Location = existingUser.Location,
+                Age = existingUser.Age,
+                Verified = existingUser.Verified,
+                ProfilePicture = existingUser.ProfilePicture
             };
 
             return Ok(updatedUserDto);
         }
 
+        // Deletes a user by ID
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
+            // Retrieve the user
             var user = await _userService.GetUserByIdAsync(userId);
 
             if (user == null)
@@ -144,6 +165,7 @@ namespace skillz_backend.controllers
                 return NotFound();
             }
 
+            // Delete the user asynchronously
             await _userService.DeleteUserAsync(userId);
 
             return NoContent();

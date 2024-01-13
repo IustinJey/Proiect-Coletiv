@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace skillz_backend.DTOs
 {
+    // Represents data for user login.
     public class LoginDto
     {
-        public string Email { get; set; }
+        // Gets or sets the username.
+        public string Username { get; set; }
+
+        // Gets or sets the password.
         public string Password { get; set; }
     }
 }

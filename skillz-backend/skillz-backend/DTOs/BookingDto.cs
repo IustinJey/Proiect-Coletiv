@@ -1,26 +1,27 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace skillz_backend.DTOs
 {
+    // Represents data for a booking.
     public class BookingDto
-{
-    [Required]
-    public int ClientUserId { get; set; }
+    {
+        // Gets or sets the client user ID.
+        [Required]
+        public int ClientUserId { get; set; }
 
-    [Required]
-    public int ProviderUserId { get; set; }
+        // Gets or sets the provider user ID.
+        [Required]
+        public int ProviderUserId { get; set; }
 
-    [Required]
-    public DateTime DateTime { get; set; }
+        // Gets or sets the date and time of the booking.
+        [Required]
+        public DateTime DateTime { get; set; }
 
-    public string Details { get; set; }
+        // Gets or sets additional details for the booking.
+        public string Details { get; set; }
 
-    [Required]
-    public string Status { get; set; }
-}
-
+        // Gets or sets the status of the booking.
+        [Required]
+        public string Status { get; set; }
+    }
 }
