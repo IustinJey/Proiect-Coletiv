@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { JobsListingComponent } from './jobs-listing/jobs-listing.component';
 import { JobPageComponent } from './job-page/job-page.component';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { JobPageComponent } from './job-page/job-page.component';
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    AppRoutingModule  // Add this line to include the routing module
+    AppRoutingModule,  // Add this line to include the routing module
+    MatIconModule
   ],
   providers: [
     AuthService,
