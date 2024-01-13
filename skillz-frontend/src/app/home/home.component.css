@@ -165,3 +165,38 @@ image {
 .small{
     margin-bottom: 50px;
 }
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-container {
+    position: relative;
+}
+
+.dropdown-menu {
+    width: 100%;
+    top: 50px;
+    left: 0px;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: center; /* Center-align the content */
+}
+
+.become-worker-button {
+    background-color: #00ef98;
+    color: white;
+    font-weight: 600;
+}
+.dropdown-menu a {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #ddd;
+}
