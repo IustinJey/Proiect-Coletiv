@@ -24,7 +24,7 @@ namespace skillz_backend.Services
         Task<List<Job>> GetJobsByExperienceAsync(int experiencedYears);
 
         // Creates a new job in the service.
-        Task CreateJobAsync(Job job);
+        Task CreateJobAsync(Job job, List<IFormFile> images);
 
         // Updates an existing job in the service.
         Task UpdateJobAsync(Job job);
@@ -34,5 +34,8 @@ namespace skillz_backend.Services
 
         // Filters jobs based on specified criteria.
         Task<List<Job>> FilterJobsAsync(string jobTitle, DateTime date, string location);
+
+        Task<List<JobImage>> GetAllImagesAsync();
+        Task<List<JobImage>> GetImagesByJobIdAsync(int jobId);
     }
 }

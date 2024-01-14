@@ -21,6 +21,8 @@ namespace skillz_backend.Services
         // Retrieves a list of all users.
         Task<List<User>> GetAllUsersAsync();
 
+        Task<string> GetProfilePictureUrl(int userId);
+
         // Retrieves jobs associated with a user by their unique identifier.
         Task<List<Job>> GetJobsByUserIdAsync(int userId);
 
@@ -29,6 +31,8 @@ namespace skillz_backend.Services
 
         // Retrieves certificates associated with a user by their unique identifier.
         Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId);
+
+        Task<List<CertificatUser>> GetAllCertificatesAsync();
 
         // Retrieves badges associated with a user by their unique identifier.
         Task<List<UserBadge>> GetUserBadgesByUserIdAsync(int userId);

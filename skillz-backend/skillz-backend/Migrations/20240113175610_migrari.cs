@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace skillz_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class migrare : Migration
+    public partial class migrari : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,19 +23,6 @@ namespace skillz_backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Badges", x => x.BadgeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Certificates",
-                columns: table => new
-                {
-                    IdCertificate = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CertificateType = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Certificates", x => x.IdCertificate);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,19 +80,13 @@ namespace skillz_backend.Migrations
                 {
                     IdCertificatUser = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdCertificate = table.Column<int>(type: "int", nullable: false),
+                    CertificateType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IdUser = table.Column<int>(type: "int", nullable: false),
                     CertificateImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CertificatsUser", x => x.IdCertificatUser);
-                    table.ForeignKey(
-                        name: "FK_CertificatsUser_Certificates_IdCertificate",
-                        column: x => x.IdCertificate,
-                        principalTable: "Certificates",
-                        principalColumn: "IdCertificate",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CertificatsUser_Users_IdUser",
                         column: x => x.IdUser,
@@ -233,11 +214,6 @@ namespace skillz_backend.Migrations
                 column: "ProviderUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CertificatsUser_IdCertificate",
-                table: "CertificatsUser",
-                column: "IdCertificate");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CertificatsUser_IdUser",
                 table: "CertificatsUser",
                 column: "IdUser");
@@ -293,9 +269,6 @@ namespace skillz_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserBadges");
-
-            migrationBuilder.DropTable(
-                name: "Certificates");
 
             migrationBuilder.DropTable(
                 name: "Jobs");

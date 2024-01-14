@@ -12,8 +12,8 @@ using skillz_backend.data;
 namespace skillz_backend.Migrations
 {
     [DbContext(typeof(SkillzDbContext))]
-    [Migration("20240109135301_migrare")]
-    partial class migrare
+    [Migration("20240113175610_migrari")]
+    partial class migrari
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,35 +87,17 @@ namespace skillz_backend.Migrations
                     b.Property<string>("CertificateImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdCertificate")
-                        .HasColumnType("int");
+                    b.Property<string>("CertificateType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
                     b.HasKey("IdCertificatUser");
 
-                    b.HasIndex("IdCertificate");
-
                     b.HasIndex("IdUser");
 
                     b.ToTable("CertificatsUser");
-                });
-
-            modelBuilder.Entity("skillz_backend.models.Certificate", b =>
-                {
-                    b.Property<int>("IdCertificate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCertificate"));
-
-                    b.Property<string>("CertificateType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdCertificate");
-
-                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("skillz_backend.models.Job", b =>
@@ -298,19 +280,11 @@ namespace skillz_backend.Migrations
 
             modelBuilder.Entity("skillz_backend.models.CertificatUser", b =>
                 {
-                    b.HasOne("skillz_backend.models.Certificate", "Certificate")
-                        .WithMany("UserCertificates")
-                        .HasForeignKey("IdCertificate")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("skillz_backend.models.User", "User")
                         .WithMany("UserCertificates")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Certificate");
 
                     b.Navigation("User");
                 });
@@ -381,11 +355,6 @@ namespace skillz_backend.Migrations
             modelBuilder.Entity("skillz_backend.models.Badge", b =>
                 {
                     b.Navigation("UserBadges");
-                });
-
-            modelBuilder.Entity("skillz_backend.models.Certificate", b =>
-                {
-                    b.Navigation("UserCertificates");
                 });
 
             modelBuilder.Entity("skillz_backend.models.Job", b =>

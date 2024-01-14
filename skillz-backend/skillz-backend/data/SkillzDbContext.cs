@@ -11,7 +11,6 @@ namespace skillz_backend.data
         public DbSet<JobImage> JobImages { get; set; }
         public DbSet<ReviewJob> ReviewsJob { get; set; }
         public DbSet<ReviewUser> ReviewsUser { get; set; }
-        public DbSet<Certificate> Certificates { get; set; }
         public DbSet<CertificatUser> CertificatsUser { get; set; }
         public DbSet<Badge> Badges { get; set; }
         public DbSet<UserBadge> UserBadges { get; set; }
@@ -53,9 +52,9 @@ namespace skillz_backend.data
                 .HasForeignKey(cu => cu.IdUser);
 
             modelBuilder.Entity<CertificatUser>()
-                .HasOne(cu => cu.Certificate)
+                .HasOne(cu => cu.User)
                 .WithMany(c => c.UserCertificates)
-                .HasForeignKey(cu => cu.IdCertificate);
+                .HasForeignKey(cu => cu.IdUser);
             // Configurarea relației dintre Badge și User
             modelBuilder.Entity<UserBadge>()
                 .HasOne(ub => ub.User)

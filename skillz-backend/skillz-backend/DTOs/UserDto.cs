@@ -3,6 +3,9 @@ namespace skillz_backend.DTOs
     // Represents data for user details.
     public class UserDto
     {
+        // Gets or sets the unique identifier for the user.
+        public int UserId { get; set; }
+
         // Gets or sets the username.
         public string Username { get; set; }
 

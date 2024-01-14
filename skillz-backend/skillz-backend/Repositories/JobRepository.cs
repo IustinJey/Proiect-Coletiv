@@ -83,5 +83,23 @@ namespace skillz_backend.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task CreateJobImageAsync(JobImage jobImage)
+        {
+            _dbContext.JobImages.Add(jobImage);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<JobImage>> GetAllImagesAsync()
+        {
+            return await _dbContext.JobImages.ToListAsync();
+        }
+
+        public async Task<List<JobImage>> GetImagesByJobIdAsync(int jobId)
+        {
+            return await _dbContext.JobImages
+                .Where(j => j.JobId == jobId)
+                .ToListAsync();
+        }
     }
 }
