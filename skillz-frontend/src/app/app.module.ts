@@ -15,6 +15,15 @@ import { JobsListingComponent } from './jobs-listing/jobs-listing.component';
 import { JobPageComponent } from './job-page/job-page.component';
 import { MatIconModule } from '@angular/material/icon';
 import { JobPostComponent } from './job-post/job-post.component';
+import { AppointmentPageComponent } from './appointment-page/appointment-page.component';
+import { HistoryPageComponent } from './history-page/history-page.component';
+import { MyJobsComponent } from './my-jobs/my-jobs.component';
+import { BookFormComponent } from './book-form/book-form.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -27,14 +36,22 @@ import { JobPostComponent } from './job-post/job-post.component';
     ProfileComponent,
     JobsListingComponent,
     JobPageComponent,
-    JobPostComponent
+    JobPostComponent,
+    AppointmentPageComponent,
+    HistoryPageComponent,
+    MyJobsComponent,
+    BookFormComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,  // Add this line to include the routing module
-    MatIconModule
+    MatIconModule, NoopAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
   ],
   providers: [
     AuthService,

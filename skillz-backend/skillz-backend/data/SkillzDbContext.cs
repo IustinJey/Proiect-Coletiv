@@ -69,10 +69,15 @@ namespace skillz_backend.data
 
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.ProviderUser)
-                .WithMany()
+                .WithMany(u => u.Bookings)
                 .HasForeignKey(b => b.ProviderUserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Booking>()
+               .HasOne(b => b.Job)
+               .WithMany(j => j.Bookings)
+               .HasForeignKey(b => b.ProviderUserId)
+               .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

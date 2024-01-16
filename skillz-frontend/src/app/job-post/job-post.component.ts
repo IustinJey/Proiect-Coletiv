@@ -11,14 +11,15 @@ import { JobService } from '../job.service';
 })
 export class JobPostComponent {
   imageFiles: File[] = [];
-  description: string = "";
+  details: string = "";
   experiencedYears: string = "";
+  selectedJobTitle: string = '';
+  
   showStepInitial: boolean = true;
   showStep1: boolean = false;
   showStep2: boolean = false;
   showStep3: boolean = false;
   errorMessage: string = "";
-  selectedJobTitle: string = '';
   jobTitles: string[] = [
     "Accountant",
     "Babysitter",
@@ -67,7 +68,7 @@ export class JobPostComponent {
     if (this.authService.isAuthenticated()) {
       // Create a job object with the required properties
       const jobDto = {
-        Description: this.description,
+        Description: this.details,
         ExperiencedYears: parseInt(this.experiencedYears),
         JobTitle: this.selectedJobTitle,
         IdUser: this.authService.getUserId(), // Assuming you have a getUserId() method in your AuthService
