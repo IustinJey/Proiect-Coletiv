@@ -33,8 +33,12 @@ namespace skillz_backend.Repositories
         // Retrieves certificates associated with a user by their unique identifier.
         Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId);
 
+        Task<List<CertificatUser>> GetAllCertificatesAsync();
+
         // Retrieves badges associated with a user by their unique identifier.
         Task<List<UserBadge>> GetUserBadgesByUserIdAsync(int userId);
+
+        Task<string> GetProfilePictureUrlAsync(int userId);
 
         // Creates a new user in the repository.
         Task CreateUserAsync(User user);
