@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz7\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
+    "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz8\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz7\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {
+    "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz8\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz7\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz8\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
         "projectName": "skillz-backend",
-        "projectPath": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz7\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "projectPath": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz8\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz7\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
+        "outputPath": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\Skillz8\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",

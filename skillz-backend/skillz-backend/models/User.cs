@@ -53,5 +53,8 @@ namespace skillz_backend.models
 
         // Gets or sets the list of badges earned by the user.
         public List<UserBadge> UserBadges { get; set; }
+
+        public List<Booking> Bookings { get; set; }
+
     }
 }
