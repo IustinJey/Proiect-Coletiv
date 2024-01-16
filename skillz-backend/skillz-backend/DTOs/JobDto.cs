@@ -16,5 +16,7 @@ namespace skillz_backend.DTOs
 
         // Gets or sets the user ID associated with the job.
         public int IdUser { get; set; }
+
+        public List<IFormFile> Images { get; set; }
     }
 }

@@ -91,6 +91,11 @@ namespace skillz_backend.Services
             return await _userRepository.GetUserCertificatesByUserIdAsync(userId);
         }
 
+        public async Task<List<CertificatUser>> GetAllCertificatesAsync()
+        {
+            return await _userRepository.GetAllCertificatesAsync();
+        }
+
         // Retrieves all users asynchronously
         public async Task<List<User>> GetAllUsersAsync()
         {
@@ -107,6 +112,11 @@ namespace skillz_backend.Services
             }
 
             return await _userRepository.GetUserBadgesByUserIdAsync(userId);
+        }
+
+        public async Task<string> GetProfilePictureUrl(int userId)
+        {
+            return await _userRepository.GetProfilePictureUrlAsync(userId);
         }
 
         // Creates a new user with a plain text password asynchronously

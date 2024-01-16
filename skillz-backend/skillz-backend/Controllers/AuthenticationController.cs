@@ -53,8 +53,8 @@ namespace skillz_backend.controllers
 
             // Generates a token for the newly registered user
             return new UserDto
-            {
-                Id = user.UserId,
+            {   
+                UserId = user.UserId,
                 Username = user.Username,
                 Email = user.Email, // Set the email property
                 Token = _authenticationService.GenerateToken(user)
@@ -84,7 +84,7 @@ namespace skillz_backend.controllers
             // If the password is valid, generate a token for the user
             return new UserDto
             {
-                Id = user.UserId,
+                UserId = user.UserId,
                 Username = user.Username,
                 Email = user.Email, // Set the email property
                 Token = _authenticationService.GenerateToken(user)

@@ -55,6 +55,12 @@ namespace skillz_backend.Repositories
             return user?.Location;
         }
 
+        public async Task<string> GetProfilePictureUrlAsync(int userId)
+        {
+            var user = await _dbContext.Users.FindAsync(userId);
+            return user?.ProfilePicture;
+        }
+
         // Retrieves jobs associated with a user.
         public async Task<List<Job>> GetJobsByUserIdAsync(int userId)
         {
@@ -83,12 +89,17 @@ namespace skillz_backend.Repositories
         public async Task<List<CertificatUser>> GetUserCertificatesByUserIdAsync(int userId)
         {
             // Asynchronously retrieves a user by ID with associated certificates using EF Core's Include and FirstOrDefaultAsync.
-            var user = await _dbContext.Users
-                .Include(u => u.UserCertificates)
-                .FirstOrDefaultAsync(u => u.UserId == userId);
+            var userCertificates = await _dbContext.CertificatsUser
+            .Where(c => c.IdUser == userId)
+            .ToListAsync();
 
             // Returns the associated certificates or an empty list if the user is not found.
-            return user?.UserCertificates ?? new List<CertificatUser>();
+            return userCertificates;
+        }
+
+        public async Task<List<CertificatUser>> GetAllCertificatesAsync()
+        {
+            return await _dbContext.CertificatsUser.ToListAsync();
         }
 
         // Retrieves badges associated with a user.
