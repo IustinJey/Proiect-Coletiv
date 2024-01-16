@@ -18,7 +18,6 @@
 .logo-div .nav-logo img {
     height: 30px; /* Adjust the logo size as needed */
     width: auto;
-    /*border-radius: 50%; /* If you want the logo to be round */
     margin-bottom: 20px;
 }
 
@@ -39,142 +38,164 @@
 
 /* Page content styling */
 .page-wrapper {
-    padding: 20px;
+    width: 420px;
 }
 
 .section-2 .heading-12 {
     margin-top: 0px; /* Space below the navbar */
-    margin-bottom: 24px; /* Space above the profile image */
+    margin-bottom: 20px; /* Space above the profile image */
+    font-family: 'Poppins';
+    font-weight: bold;
+    margin-left: 5%;
 }
 
-/* Profile image styling */
-.profileimagediv img {
-    display: block;
-    height: 65px;
-    width: 65px;
-    border-radius: 50%;
-    margin-bottom: 20px; /* Space below the profile image */
-    margin-right: 20px;
-}
-/* Container for the profile image and the username */
-.profile {
-    display: flex;
-    align-items: center; /* This will vertically align the username with the profile image */
+.profile-box{
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    height: 92px;
+    width: 80%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-left: 12%;
 }
 
-
-.w-layout-layout { /* Presupunând că aceasta este clasa containerului comun */
-    display: flex;
-    align-items: center; /* Acest lucru va asigura că elementele sunt centrate vertical */
+.profileimage{
+    border-radius: 50%; 
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover;
+    position:absolute;
+    top: 0%;
 }
 
-/* Styles for the username */
 .username{
+    position:absolute;
+    font-family: "Poppins";
+    font-size: 18px;
+    font-weight: 600 semibold;
+    left: 35%;
+    top: 0%;
+}
+
+
+.memberdate{
+    font-family: "Poppins";
+    font-size: 13px;
+    font-weight: 400 normal;
+    position:absolute;
+    left: 35%;
+    top: 30%;
+}
+
+.image-4{
+    width: 17px; 
+    height: 17px; 
+    position:absolute;
+    left: 78%;
+}
+
+
+.listitemcertificate {
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #00ef98;
+    height: 92px;
+    width: 95%;
+    margin-left: -3%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 5%;    
+    margin-top: 0%;
+}
+
+
+.certificatename {
+    font-family: "Poppins";
     font-size: 15px;
-    margin-top: 25px;
-    margin-right: 10px;
-    font-weight:  600;
+    font-weight: 500 normal;
+    color: #f5f6f7  ;
+    top: 0;
+    left: 0;
+    margin: 20px; 
+    position: absolute;
+}
+
+.experiencedyears {
+    position: absolute;
+    left: 0%;
+    top: 20%;
+    margin: 20px;
+    font-family: "Poppins";
+    font-size: 13px;
+    font-weight: 500 normal;
+    color: #f5f6f7;
+}
+
+.certifpoza{
+    position: absolute;
+    top: 10%;
+    right: 0%;
+    margin: 20px;
+}
+
+
+
+.w-slider-mask{
+    height: 300px;
+    width: 100%;
+}
+
+.slide{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.cell-5{
+    position: absolute; /* Poziționează absolut în raport cu cel mai apropiat părinte relativ/absolut poziționat */
     
-}
-.w-layout-blockcontainer.container-5.allagh.w-container
- {
-    font-size: 14px; /* Adjust the font size to make the text smaller */
-    /* ... other styles ... */
-    margin-top: 20px;
-    margin-right: 12px;
-}
-
-/* Username and member date positioning */
-
-
-.image-4 {
-    width: 20px; /* Adjust width as needed */
-    height: auto; /* Keep the aspect ratio */
-    /* Other styles as needed */
-}    
-
-.memberdate {
-    display: inline-block;
-    margin-left: 25px; /* Space to the right of the profile image */
-    font-size: 12px;
-    position: relative;
-    top: -25px; 
-    left: -25px;
-}
-
-/* Adjustments for the username and member date container */
-.w-layout-layout.profile {
-    display: flex;
-    align-items: center;
-    
-}
-
-
-/* Ensure that the profile image and the text are on the same line */
-.profileimagediv {
-    display: flex;
-    align-items: center;
-    height: 12px;
-}
-
-.heading-9.certificatename {
-    font-size: 15px; /* Sau orice altă dimensiune mai mică pe care o preferi */
-    padding: 10px;
-    border-bottom: none; /* Fără bordură jos */
-    padding: 30px 15px; 
-}
-
-.heading-9.experiencedyears {
-    font-size: 12px; /* Sau orice altă dimensiune mai mică pe care o preferi */
-    position: relative;
-    top: -20px; 
-    padding: 10px; /* Padding similar pentru consistență */
-    margin-top: -10px;
-    padding: 15px; 
-
-}
-
-
-.heading-9 {
-    background-color: #00f493;  /*Alege o culoare de fundal*/ 
-    padding: 10px; /* Ajustează spațiul interior pentru a crea spațiu în jurul textului */
-    /* Alte stiluri, cum ar fi margin, pentru a poziționa chenarul cum dorești */
-    height: 40px;
-    width: 340px;
-    border-radius: 10px;
-    margin-left: -40px;
-
-    
-    /*argin-left: (100%-24px);
-    margin-right: (100%-24px);
-    width: calc(100% - 48px); /* Scade padding-ul dublat din lățimea totală 
-    box-sizing: border-box;*/
-
-
-
+    padding-left: 250px;
 }
 
 .button-4 {
-    background-color:  #00f493; /* Schimbă #000000 cu codul de culoare dorit pentru bordură */
-    padding: 15px 130px; /* Ajustează padding-ul pentru a modifica spațiul din interiorul butonului */
-    border-radius: 10px; /* Opțional: Adaugă bordură rotunjită */
-    height: 55px;
-    width: 350px;
-    margin-bottom: 80px;
+    
     color: #FFFFFF;
     /* Alte stiluri necesare, cum ar fi culoarea de fundal, culoarea textului etc. */
 }
+.button-div {
+    background-color: #00f493; /* Your chosen color for the button */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    border-radius: 10px; /* Rounded corners */
+    height: 55px;
+    width: 90%;
+    margin-bottom: 60px;
+    margin-top: 20px;
+    border-radius: 10px;
+    margin-left: 5%;
+}
+
  
 .profileheading {
     font-size: 18px; /* Sau orice altă dimensiune mai mică dorești */
     margin-top: 40px; /* Acesta va adăuga un spațiu de 40px deasupra elementului */
     /* Alte stiluri necesare pentru profile-heading */
     font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
     
 }
 
 .paragraph-6 {
-    margin-top: 24px; /* Acesta va adăuga un spațiu de 40px deasupra elementului */
+    margin-top: 20px; /* Acesta va adăuga un spațiu de 40px deasupra elementului */
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 400;
     
 }
 .profileheading.sdas {
@@ -184,6 +205,54 @@
     margin-bottom: 24px;
 
 }
+
+/* Footer  incepe aici */
+
+
+/* Additional styles for other elements... */
+  /* Add these styles to your job-page.component.css file or equivalent */
+  
+  /* Add these styles to your job-page.component.css file or equivalent */
+  
+  .w-slider {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .w-slider-mask {
+        display: flex;  /* Ensure children are in a row */
+        transition: transform 0.5s ease;  /* Add a transition for smooth sliding */
+        height: 300px;
+        width: 100%;
+  }
+  
+  .slide {
+    min-width: 100%;
+    height: 100vh;  /* Adjust height as needed */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .w-slider-arrow-left,
+  .w-slider-arrow-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;  /* Adjust font size as needed */
+    color: white;  /* Adjust color as needed */
+    cursor: pointer;
+    z-index: 2;  /* Ensure arrows are above the slides */
+  }
+  
+  .w-slider-arrow-left {
+    left: 10px;
+  }
+  
+  .w-slider-arrow-right {
+    right: 10px;
+  }
+
+
 
 .footer-logo{
     margin-bottom:35px;
@@ -227,10 +296,8 @@
     
 }
 .section{
-    background-color: #f5f6f7;
-    padding-left:20px;
-    padding-right:20px;
-    padding-top: 25px;
+    background-color: #f5f5f7;
+    /* background-color: pink; */
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -257,48 +324,3 @@
 .small{
     margin-bottom: 50px;
 }
-/* Additional styles for other elements... */
-  /* Add these styles to your job-page.component.css file or equivalent */
-  
-  /* Add these styles to your job-page.component.css file or equivalent */
-  
-  .w-slider {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .w-slider-mask {
-        display: flex;  /* Ensure children are in a row */
-        transition: transform 0.5s ease;  /* Add a transition for smooth sliding */
-        height: 300px;
-        width: 100%;
-  }
-  
-  .slide {
-    min-width: 100%;
-    height: 100vh;  /* Adjust height as needed */
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .w-slider-arrow-left,
-  .w-slider-arrow-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;  /* Adjust font size as needed */
-    color: white;  /* Adjust color as needed */
-    cursor: pointer;
-    z-index: 2;  /* Ensure arrows are above the slides */
-  }
-  
-  .w-slider-arrow-left {
-    left: 10px;
-  }
-  
-  .w-slider-arrow-right {
-    right: 10px;
-  }
-  
-
-  

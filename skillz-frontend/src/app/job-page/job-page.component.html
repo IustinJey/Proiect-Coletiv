@@ -23,7 +23,7 @@
         <div class="w-layout-blockcontainer container-9 w-container">
             <h1 class="heading-12">Gardener</h1>
             <div id="w-node-_89e9002d-f55b-d64b-e852-b17d5180dafd-af863937"
-                class="w-layout-layout profile wf-layout-layout">
+                class="profile-box">
                 <div class="w-layout-cell profileimagediv fdg">
                     <div class="w-layout-blockcontainer container-4 w-container"><img
                             src="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863905_gardener-job-description-1659711272.webp"
@@ -49,14 +49,14 @@
                 </div>
             </div>
             <ul role="list" class="list-2 w-list-unstyled">
-                <li class="listitemcertificate">
+                <li *ngFor="let jcertificate of jcertificates; let j = index" class="listitemcertificate" [attr.data-index]="j + 1">
                     <div id="w-node-a6c95efc-ce19-70d8-5561-a16da28118e1-af863937"
                         class="w-layout-layout quick-stack-4 wf-layout-layout">
                         <div class="w-layout-cell">
-                            <h1 class="heading-9 certificatename certificatetype">Gardener</h1>
-                            <h1 class="heading-9 experiencedyears">+5 years experience</h1>
+                            <h1 class="heading-9 certificatename certificatetype">{{ jcertificate.certificateName }}</h1>
+                            <h1 class="heading-9 experiencedyears">{{ jcertificate.experience}}</h1>
                         </div>
-                        <div class="w-layout-cell cell-5"><img
+                        <div class="certifpoza"><img
                                 src="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863915_certificate%20(2).png"
                                 loading="lazy" width="39" sizes="39px" alt=""
                                 srcset="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863915_certificate%2520(2)-p-500.png 500w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863915_certificate%20(2).png 512w" />
@@ -82,7 +82,7 @@
               </div>
               <div class="w-slider-nav w-round w-num"></div>              
         </div>
-        <div class="w-layout-blockcontainer container-10 w-container"><a href="#" class="button-4 w-button">Book
+        <div class="button-div"><a href="#" class="button-4 w-button">Book
                 Now</a></div>
         <div class="w-layout-blockcontainer container-7 w-container">
             <h1 class="profileheading">Description</h1>
@@ -90,24 +90,6 @@
                 in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
                 commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc
                 ut sem vitae risus tristique posuere.</p>
-        </div>
-        <div class="w-layout-blockcontainer container-7 w-container">
-            <h1 class="profileheading">Reviews</h1>
-            <div class="w-layout-blockcontainer reviewcontainer w-container"></div>
-        </div>
-        <h1 class="profileheading sdas">Badges</h1>
-        <div id="w-node-_78c89a9d-cc40-ba13-f1a9-fb0fce0e02b4-af863937"
-            class="w-layout-layout quick-stack-2 wf-layout-layout">
-            <div id="w-node-_78c89a9d-cc40-ba13-f1a9-fb0fce0e02b5-af863937" class="w-layout-cell badge"><img
-                    src="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863914_medal.png"
-                    loading="lazy" width="57" sizes="57px" alt=""
-                    srcset="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863914_medal-p-500.png 500w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863914_medal.png 512w" />
-            </div>
-            <div id="w-node-_78c89a9d-cc40-ba13-f1a9-fb0fce0e02b7-af863937" class="w-layout-cell badge1"><img
-                    src="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863914_medal.png"
-                    loading="lazy" width="57" sizes="57px" alt=""
-                    srcset="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863914_medal-p-500.png 500w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863914_medal.png 512w" />
-            </div>
         </div>
     </div>
 </div>
