@@ -62,10 +62,10 @@ namespace skillz_backend.Controllers
 
             var bookings = await _bookingService.GetBookingsByClientAsync(clientId);
 
-            if (bookings.Count == 0)
-            {
-                return NotFound($"No bookings found for client with ClientId '{clientId}'.");
-            }
+            //if (bookings.Count == 0)
+            //{
+            //    return NotFound($"No bookings found for client with ClientId '{clientId}'.");
+            //}
 
             return Ok(bookings);
         }
@@ -82,10 +82,10 @@ namespace skillz_backend.Controllers
 
             var bookings = await _bookingService.GetBookingsByProviderAsync(providerId);
 
-            if (bookings.Count == 0)
-            {
-                return NotFound($"No bookings found for provider with ProviderId '{providerId}'.");
-            }
+            //if (bookings.Count == 0)
+            //{
+            //    return NotFound($"No bookings found for provider with ProviderId '{providerId}'.");
+            //}
 
             return Ok(bookings);
         }
@@ -102,10 +102,10 @@ namespace skillz_backend.Controllers
 
             var bookings = await _bookingService.GetBookingsByStatusAsync(status);
 
-            if (bookings.Count == 0)
-            {
-                return NotFound($"No bookings found with the status '{status}'.");
-            }
+            //if (bookings.Count == 0)
+            //{
+            //    return NotFound($"No bookings found with the status '{status}'.");
+            //}
 
             return Ok(bookings);
         }
@@ -125,6 +125,7 @@ namespace skillz_backend.Controllers
                 // Manual mapping from BookingDto to Booking
                 var booking = new Booking
                 {
+                    JobId = bookingDto.JobId,
                     ClientUserId = bookingDto.ClientUserId,
                     ProviderUserId = bookingDto.ProviderUserId,
                     DateTime = bookingDto.DateTime,
@@ -168,6 +169,7 @@ namespace skillz_backend.Controllers
 
             try
             {
+                
                 // Manual mapping from BookingDto to Booking
                 existingBooking.ClientUserId = bookingDto.ClientUserId;
                 existingBooking.ProviderUserId = bookingDto.ProviderUserId;

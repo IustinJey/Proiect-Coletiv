@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
+    "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\SkillzGit9\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {}
   },
   "projects": {
-    "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {
+    "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\SkillzGit9\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\SkillzGit9\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
         "projectName": "skillz-backend",
-        "projectPath": "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
-        "packagesPath": "C:\\Users\\claud\\.nuget\\packages\\",
-        "outputPath": "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
+        "projectPath": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\SkillzGit9\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ADMIN\\Desktop\\Nitro\\gombos\\Chestii\\SkillzGit\\SkillzGit9\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\claud\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

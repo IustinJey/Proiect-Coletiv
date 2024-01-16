@@ -32,5 +32,7 @@ namespace skillz_backend.models
 
         // Gets or sets the list of reviews provided for the job.
         public List<ReviewJob> ReviewsJob { get; set; }
+
+        public List<Booking> Bookings { get; set; }
     }
 }

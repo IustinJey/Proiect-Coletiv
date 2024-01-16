@@ -56,9 +56,7 @@ namespace skillz_backend.controllers
             {   
                 UserId = user.UserId,
                 Username = user.Username,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                Location = user.Location,
+                Email = user.Email, // Set the email property
                 Token = _authenticationService.GenerateToken(user)
             };
         }
@@ -68,10 +66,10 @@ namespace skillz_backend.controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             // Retrieves the user based on the provided username
-            var user = await _skillzDbContext.Users.SingleOrDefaultAsync(x => x.Username == loginDto.Username);
+            var user = await _skillzDbContext.Users.SingleOrDefaultAsync(x => x.Email == loginDto.Email);
 
             // If the user does not exist, return Unauthorized
-            if (user == null) return Unauthorized("Invalid username");
+            if (user == null) return Unauthorized("Invalid email");
 
             // Creates a hash using the user's password salt
             using var hmac = new HMACSHA512(user.PasswordSalt);
@@ -88,6 +86,7 @@ namespace skillz_backend.controllers
             {
                 UserId = user.UserId,
                 Username = user.Username,
+                Email = user.Email, // Set the email property
                 Token = _authenticationService.GenerateToken(user)
             };
         }

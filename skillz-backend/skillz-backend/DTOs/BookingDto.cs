@@ -17,6 +17,8 @@ namespace skillz_backend.DTOs
         [Required]
         public DateTime DateTime { get; set; }
 
+        public int JobId { get; set; }
+
         // Gets or sets additional details for the booking.
         public string Details { get; set; }
 
