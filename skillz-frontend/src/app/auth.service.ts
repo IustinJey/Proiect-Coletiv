@@ -16,7 +16,7 @@ export class AuthService {
   private usernameKey = 'auth_username'; // key to store the username in local storage
   private emailKey = 'auth_email'; // key to store the email in local storage
   private userID= 'user_id';
-  private isAuth = false
+  private isAuth = "false";
   constructor(private http: HttpClient) {}
 
   register(user: any): Observable<any> {
@@ -39,11 +39,12 @@ export class AuthService {
 
   logout(): Observable<any> {
     // Implement logout logic here, if needed
-    this.isAuth = false;
+    this.isAuth = "false";
     return this.http.post<any>(`${this.apiUrl}/logout`, {});
   }
 
   private handleAuthentication(response: any): void {
+    console.log('Authentication response:', response);
     // Handle the authentication response, e.g., store the token, username, and email in local storage
     if (response && response.token) {
       localStorage.setItem(this.tokenKey, response.token);
@@ -56,8 +57,13 @@ export class AuthService {
     if (response && response.email) {
       localStorage.setItem(this.emailKey, response.email);
     }
-    if(response)
-      this.isAuth = true;
+    if (response && response.token) {
+      localStorage.setItem(this.isAuth, "true");
+      localStorage.setItem(this.tokenKey, response.token);
+    }
+    if (response && response.username) {
+      localStorage.setItem(this.userID, response.id);
+    }
   }
 
   getToken(): string | null {
@@ -65,9 +71,24 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
-  getUserId(): string | null {
+  getUserId(): number | null {
     // Retrieve the stored token from local storage
-    return localStorage.getItem(this.userID);
+    const userIdString = localStorage.getItem(this.userID);
+  
+    // Check if userIdString is null or undefined
+    if (userIdString === null || userIdString === undefined) {
+      return null;
+    }
+  
+    // Parse the string to an integer
+    const userId = parseInt(userIdString, 10);
+  
+    // Check if the parsing was successful
+    if (isNaN(userId)) {
+      return null; // Return null if parsing failed
+    }
+  
+    return userId;
   }
 
   getUsername(): string | null {
@@ -78,5 +99,9 @@ export class AuthService {
   getEmail(): string | null {
     // Retrieve the stored email from local storage
     return localStorage.getItem(this.emailKey);
+  }
+  getAuthStatus(): string | null {
+    // Retrieve the stored email from local storage
+    return localStorage.getItem(this.isAuth);
   }
 }

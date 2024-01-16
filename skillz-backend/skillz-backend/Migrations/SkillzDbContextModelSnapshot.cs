@@ -58,6 +58,9 @@ namespace skillz_backend.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProviderUserId")
                         .HasColumnType("int");
 
@@ -282,13 +285,21 @@ namespace skillz_backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("skillz_backend.models.Job", "Job")
+                        .WithMany("Bookings")
+                        .HasForeignKey("ProviderUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("skillz_backend.models.User", "ProviderUser")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("ProviderUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ClientUser");
+
+                    b.Navigation("Job");
 
                     b.Navigation("ProviderUser");
                 });
@@ -387,6 +398,8 @@ namespace skillz_backend.Migrations
 
             modelBuilder.Entity("skillz_backend.models.Job", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("Images");
 
                     b.Navigation("ReviewsJob");
@@ -394,6 +407,8 @@ namespace skillz_backend.Migrations
 
             modelBuilder.Entity("skillz_backend.models.User", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("Jobs");
 
                     b.Navigation("ReviewsUser");
