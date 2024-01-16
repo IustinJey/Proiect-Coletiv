@@ -48,5 +48,7 @@ namespace skillz_backend.Repositories
 
         // Deletes a user by their unique identifier from the repository.
         Task DeleteUserAsync(int userId);
+
+        Task CreateCertificatUserAsync(CertificatUser certificatUser);
     }
 }

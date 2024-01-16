@@ -210,6 +210,8 @@ namespace skillz_backend.controllers
                 existingJob.ExperiencedYears = jobDto.ExperiencedYears;
                 existingJob.IdUser = jobDto.IdUser;
 
+                List<string> savedImagePaths = await SaveImages(jobDto.Images, _webHostEnvironment.WebRootPath);
+
                 await _jobService.UpdateJobAsync(existingJob);
             }
             catch (Exception ex)

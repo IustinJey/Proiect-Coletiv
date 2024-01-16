@@ -11,14 +11,7 @@ namespace skillz_backend.models
         // Gets or sets the password. (Required)
         [Required]
         public string Password { get; set; }
-
-        // Gets or sets the email. (EmailAddress)
-        [EmailAddress]
-        public string Email { get; set; }
-
-        // Gets or sets the age.
-        public int Age { get; set; }
-
+        
         // Gets or sets the phone number.
         public string PhoneNumber { get; set; }
 
@@ -29,6 +22,6 @@ namespace skillz_backend.models
         public bool Verified { get; set; }
 
         // Gets or sets the profile picture URL.
-        public string ProfilePicture { get; set; }
+        public List<IFormFile> ProfilePicture { get; set; }
     }
 }

@@ -194,5 +194,10 @@ namespace skillz_backend.Services
             // Delete the user
             await _userRepository.DeleteUserAsync(userId);
         }
+
+         public async Task CreateCertificatUserAsync(CertificatUser certificatUser)
+        {
+            await _userRepository.CreateCertificatUserAsync(certificatUser);
+        }
     }
 }

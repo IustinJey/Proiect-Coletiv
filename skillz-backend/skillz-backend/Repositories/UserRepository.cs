@@ -143,5 +143,11 @@ namespace skillz_backend.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task CreateCertificatUserAsync(CertificatUser certificatUser)
+        {
+            _dbContext.CertificatsUser.Add(certificatUser);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
