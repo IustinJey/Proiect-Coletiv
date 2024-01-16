@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using skillz_backend.DTOs;
 using skillz_backend.models;
@@ -13,13 +14,13 @@ namespace skillz_backend.controllers
     public class JobController : ControllerBase
     {
         private readonly IJobService _jobService;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         // Constructor to inject IJobService dependency
-        public JobController(IJobService jobService, IWebHostEnvironment environment)
+        public JobController(IJobService jobService, IWebHostEnvironment webHostEnvironment)
         {
             _jobService = jobService ?? throw new ArgumentNullException(nameof(jobService));
-            _environment = environment;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // Retrieves a job by ID
@@ -140,9 +141,9 @@ namespace skillz_backend.controllers
                     ExperiencedYears = jobDto.ExperiencedYears,
                     IdUser = jobDto.IdUser
                 };
-
+                List<string> savedImagePaths = await SaveImages(jobDto.Images, _webHostEnvironment.WebRootPath);
                 // Create the job with images
-                await _jobService.CreateJobAsync(job, jobDto.Images);
+                await _jobService.CreateJobAsync(job, null);
             }
             catch (Exception ex)
             {
@@ -150,6 +151,38 @@ namespace skillz_backend.controllers
             }
 
             return Ok(jobDto);
+        }
+
+        private async Task<List<string>> SaveImages(List<IFormFile> images, string webRootPath)
+        {
+            if (webRootPath == null)
+            {
+                // Log an error or handle the situation where the webRootPath is null
+                // You might want to provide a default path or take appropriate action
+                throw new ArgumentNullException(nameof(webRootPath), "WebRootPath cannot be null.");
+            }
+
+            List<string> savedImagePaths = new List<string>();
+
+            foreach (var image in images)
+            {
+                // Generate a unique filename for each image (you may want to use GUIDs or other methods)
+                var uniqueFileName = $"{Guid.NewGuid().ToString()}_{image.FileName}";
+
+                // Combine the unique filename with the web root path where you want to save the images
+                var filePath = Path.Combine(webRootPath, "uploads", uniqueFileName);
+
+                // Save the image to the specified path
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+
+                // Add the saved image path to the list
+                savedImagePaths.Add(filePath);
+            }
+
+            return savedImagePaths;
         }
 
         // Updates an existing job
