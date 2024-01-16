@@ -13,13 +13,15 @@ namespace skillz_backend.Services
         private readonly IJobRepository _jobRepository;
         private readonly IUserRepository _userRepository;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IWebHostEnvironment _environment;
 
         // Constructor to initialize repositories
-        public JobService(IJobRepository jobRepository, IUserRepository userRepository, IBookingRepository bookingRepository)
+        public JobService(IJobRepository jobRepository, IUserRepository userRepository, IBookingRepository bookingRepository, IWebHostEnvironment environment)
         {
             _jobRepository = jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _bookingRepository = bookingRepository ?? throw new ArgumentNullException(nameof(bookingRepository));
+            _environment = environment;
         }
 
         // Retrieves a job by its ID asynchronously
@@ -77,7 +79,7 @@ namespace skillz_backend.Services
         }
 
         // Creates a new job asynchronously
-        public async Task CreateJobAsync(Job job)
+        public async Task CreateJobAsync(Job job, List<IFormFile>? images)
         {
             // Validation for non-null job object and required properties
             if (job == null)
@@ -116,7 +118,46 @@ namespace skillz_backend.Services
 
             // Create the job
             await _jobRepository.CreateJobAsync(job);
+
+            // Save images
+            if (images != null)
+            {
+                foreach (var image in images)
+                {
+                    var jobImage = new JobImage
+                    {
+                        ImageUrl = await SaveImageToDatabase(image),
+                        JobId = job.IdJob
+                    };
+
+                    await _jobRepository.CreateJobImageAsync(jobImage);
+                }
+            }
         }
+
+        private async Task<string> SaveImageToDatabase(IFormFile image)
+        {
+            // Generate a unique filename
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+
+            // Specify the folder path where images will be saved
+            var folderPath = Path.Combine(_environment.WebRootPath, "uploads");
+
+            // Create the full path for the image
+            var filePath = Path.Combine(folderPath, fileName);
+
+            // Save the image to the specified folder
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+
+            // Generate the URL for the saved image
+            var imageUrl = String.Format(@"C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\uploads\\{0}", fileName);
+
+            return imageUrl;
+        }
+
 
         // Updates an existing job asynchronously
         public async Task UpdateJobAsync(Job job)
@@ -220,8 +261,17 @@ namespace skillz_backend.Services
 
                 filteredJobs = filteredJobsWithLocation.ToList();
             }
-
             return filteredJobs;
+        }
+
+        public async Task<List<JobImage>> GetAllImagesAsync()
+        {
+            return await _jobRepository.GetAllImagesAsync();
+        }
+
+        public async Task<List<JobImage>> GetImagesByJobIdAsync(int jobId)
+        {
+            return await _jobRepository.GetImagesByJobIdAsync(jobId);
         }
     }
 }

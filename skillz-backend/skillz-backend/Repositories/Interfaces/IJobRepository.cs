@@ -22,6 +22,9 @@ namespace skillz_backend.Repositories
         // Retrieves jobs by the required experience level.
         Task<List<Job>> GetJobsByExperienceAsync(int experiencedYears);
 
+        Task<List<JobImage>> GetAllImagesAsync();
+        Task<List<JobImage>> GetImagesByJobIdAsync(int jobId);
+
         // Creates a new job in the repository.
         Task CreateJobAsync(Job job);
 
@@ -30,5 +33,7 @@ namespace skillz_backend.Repositories
 
         // Deletes a job by its unique identifier from the repository.
         Task DeleteJobAsync(int jobId);
+
+        Task CreateJobImageAsync(JobImage jobImage);
     }
 }

@@ -99,6 +99,25 @@ namespace skillz_backend.controllers
             return Ok(certificates);
         }
 
+        [HttpGet("certificates")]
+        public async Task<ActionResult<List<CertificatUser>>> GetAllCertificatesAsync()
+        {
+            var certificates = await _userService.GetAllCertificatesAsync();
+            return Ok(certificates);
+        }
+
+        [HttpGet("{userId}/profile-picture")]
+        public async Task<ActionResult<string>> GetUserProfilePictureAsync(int userId)
+        {
+            var profilePictureUrl = await _userService.GetProfilePictureUrl(userId);
+            if (profilePictureUrl != null)
+            {
+                return Ok(profilePictureUrl);
+            }
+
+            return NotFound();
+        }
+
         // Retrieves badges associated with a user ID
         [HttpGet("{userId}/badges")]
         public async Task<IActionResult> GetUserBadgesByUserId(int userId)

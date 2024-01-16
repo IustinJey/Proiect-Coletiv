@@ -13,11 +13,13 @@ namespace skillz_backend.controllers
     public class JobController : ControllerBase
     {
         private readonly IJobService _jobService;
+        private readonly IWebHostEnvironment _environment;
 
         // Constructor to inject IJobService dependency
-        public JobController(IJobService jobService)
+        public JobController(IJobService jobService, IWebHostEnvironment environment)
         {
             _jobService = jobService ?? throw new ArgumentNullException(nameof(jobService));
+            _environment = environment;
         }
 
         // Retrieves a job by ID
@@ -104,9 +106,23 @@ namespace skillz_backend.controllers
             return Ok(jobs);
         }
 
+        [HttpGet("jobImages")]
+        public async Task<ActionResult<List<JobImage>>> GetAllImagesAsync()
+        {
+            var images = await _jobService.GetAllImagesAsync();
+            return Ok(images);
+        }
+
+        [HttpGet("{jobId}/images")]
+        public async Task<ActionResult<List<JobImage>>> GetImagesByJobIdAsync(int jobId)
+        {
+            var images = await _jobService.GetImagesByJobIdAsync(jobId);
+            return Ok(images);
+        }
+
         // Creates a new job
         [HttpPost]
-        public async Task<ActionResult<JobDto>> CreateJob([FromBody] JobDto jobDto)
+        public async Task<ActionResult<JobDto>> CreateJobWithImages([FromForm] JobDto jobDto)
         {
             // Validate the ModelState
             if (!ModelState.IsValid)
@@ -125,20 +141,15 @@ namespace skillz_backend.controllers
                     IdUser = jobDto.IdUser
                 };
 
-                await _jobService.CreateJobAsync(job);
+                // Create the job with images
+                await _jobService.CreateJobAsync(job, jobDto.Images);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
 
-            return new JobDto
-            {
-                JobTitle = jobDto.JobTitle,
-                Description = jobDto.Description,
-                ExperiencedYears = jobDto.ExperiencedYears,
-                IdUser = jobDto.IdUser
-            };
+            return Ok(jobDto);
         }
 
         // Updates an existing job
