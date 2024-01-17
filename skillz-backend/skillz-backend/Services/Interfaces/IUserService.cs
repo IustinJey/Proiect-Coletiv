@@ -45,5 +45,7 @@ namespace skillz_backend.Services
 
         // Deletes a user by their unique identifier from the service.
         Task DeleteUserAsync(int userId);
+
+        Task CreateCertificatUserAsync(CertificatUser certificatUser);
     }
 }
