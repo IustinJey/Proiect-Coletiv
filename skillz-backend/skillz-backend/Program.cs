@@ -43,7 +43,10 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+app.UseStaticFiles();  // Manually set up static files middleware
 
+var env = app.Services.GetRequiredService<IWebHostEnvironment>();
+env.WebRootPath = "wwwroot";
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
