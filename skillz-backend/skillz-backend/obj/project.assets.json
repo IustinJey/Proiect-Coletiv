@@ -6015,11 +6015,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+      "projectUniqueName": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
       "projectName": "skillz-backend",
-      "projectPath": "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
+      "projectPath": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\skillz-backend.csproj",
       "packagesPath": "C:\\Users\\claud\\.nuget\\packages\\",
-      "outputPath": "C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
+      "outputPath": "C:\\claudiu\\Facultate\\Anul III - semestrul I\\Proiect Colectiv\\Skillz\\skillz-backend\\skillz-backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\claud\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -5,6 +5,7 @@ namespace skillz_backend.DTOs
     // Represents data for user registration.
     public class RegisterDto
     {
+        public int Id { get; set; }
         // Gets or sets the username.
         [Required]
         public string Username { get; set; }

@@ -12,6 +12,7 @@ namespace skillz_backend.models
         // Gets or sets the unique identifier for the client user making the reservation.
         public int ClientUserId { get; set; }
 
+        public int JobId { get; set; }
         // Gets or sets the associated client user for this booking.
         public User ClientUser { get; set; }
 
@@ -26,9 +27,10 @@ namespace skillz_backend.models
 
         // Gets or sets additional details or notes for the booking.
         public string Details { get; set; }
-
         // Gets or sets the status of the booking (Pending, Accepted, or Declined).
         public BookingStatus Status { get; set; }
+
+        public Job Job { get; set; }
     }
 
     // Enum representing the possible statuses for a booking.
@@ -36,6 +38,8 @@ namespace skillz_backend.models
     {
         Pending,
         Accepted,
-        Declined
+        Canceled,
+        Rejected,
+        Completed
     }
 }

@@ -14,11 +14,14 @@ namespace skillz_backend.controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
 
         // Constructor to inject IUserService dependency
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IWebHostEnvironment webHostEnvironment)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // Retrieves a user by ID
@@ -127,6 +130,38 @@ namespace skillz_backend.controllers
             return Ok(badges);
         }
 
+        private async Task<List<string>> SaveImages(List<IFormFile> images, string webRootPath)
+        {
+            if (webRootPath == null)
+            {
+                // Log an error or handle the situation where the webRootPath is null
+                // You might want to provide a default path or take appropriate action
+                throw new ArgumentNullException(nameof(webRootPath), "WebRootPath cannot be null.");
+            }
+
+            List<string> savedImagePaths = new List<string>();
+
+            foreach (var image in images)
+            {
+                // Generate a unique filename for each image (you may want to use GUIDs or other methods)
+                var uniqueFileName = $"{Guid.NewGuid().ToString()}_{image.FileName}";
+
+                // Combine the unique filename with the web root path where you want to save the images
+                var filePath = Path.Combine(webRootPath, "uploads", uniqueFileName);
+
+                // Save the image to the specified path
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+
+                // Add the saved image path to the list
+                savedImagePaths.Add(filePath);
+            }
+
+            return savedImagePaths;
+        }
+
         // Updates an existing user
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserUpdateDto userDto)
@@ -147,12 +182,11 @@ namespace skillz_backend.controllers
 
             // Update user properties with values from the DTO
             existingUser.Username = userDto.Username.ToLower();
-            existingUser.Email = userDto.Email.ToLower();
             existingUser.PhoneNumber = userDto.PhoneNumber.ToLower();
             existingUser.Location = userDto.Location.ToLower();
-            existingUser.Age = userDto.Age;
             existingUser.Verified = userDto.Verified;
-            existingUser.ProfilePicture = userDto.ProfilePicture;
+
+             List<string> savedImagePaths = await SaveImages(userDto.ProfilePicture, _webHostEnvironment.WebRootPath);
 
             // Update the user asynchronously, including the password
             await _userService.UpdateUserAsync(existingUser, userDto.Password);
@@ -161,12 +195,9 @@ namespace skillz_backend.controllers
             var updatedUserDto = new UserUpdateDto
             {
                 Username = existingUser.Username,
-                Email = existingUser.Email,
                 PhoneNumber = existingUser.PhoneNumber,
                 Location = existingUser.Location,
-                Age = existingUser.Age,
-                Verified = existingUser.Verified,
-                ProfilePicture = existingUser.ProfilePicture
+                Verified = existingUser.Verified
             };
 
             return Ok(updatedUserDto);
@@ -189,5 +220,37 @@ namespace skillz_backend.controllers
 
             return NoContent();
         }
+
+        [HttpPost("createcertificatuserwithimages")]
+        public async Task<ActionResult<CertificatUserDto>> CreateCertificatUserWithImages([FromForm] CertificatUserDto certificatUserDto)
+        {
+            // Validate the ModelState
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                // Manual mapping from CertificatUserDto to CertificatUser
+                var certificatUser = new CertificatUser
+                {
+                    CertificateType = certificatUserDto.CertificateType,
+                    IdUser = certificatUserDto.IdUser
+                };
+
+                List<string> savedImagePaths = await SaveImages(certificatUserDto.CertificateImage, _webHostEnvironment.WebRootPath);
+
+                // Create the CertificatUser with images
+                await _userService.CreateCertificatUserAsync(certificatUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(certificatUserDto);
+        }
+
     }
 }
