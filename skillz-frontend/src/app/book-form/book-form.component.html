@@ -1,6 +1,7 @@
 <!-- login.component.html -->
-<div class="big-countainer">
-    <div class="container">
+<div class="base">
+    <div class="big-container">
+    <div class="container" >
         <div class="profile">
             <div class="w-layout-blockcontainer container-4 w-container"><img
                 loading="lazy" sizes="(max-width: 599px) 100vw, 599px"
@@ -8,10 +9,10 @@
                 alt="" class="profileimage1" />
             </div>
             <div class="w-layout-cell cell-4 asd">
-                <h1 class="username-profile">Gombos Andrei</h1>
+                <h1 class="username-profile">{{username}}</h1>
             </div>
             <div class="w-layout-cell cell-4">
-                <h1 class="job-title">Gardener</h1>
+                <h1 class="job-title">{{jobTitle}}</h1>
             </div>
         </div>
         <div class="signup-step-initial" *ngIf="showStepInitial" id="stepInitial">
@@ -47,4 +48,5 @@
             <button class="signup-button" (click)="step1_action()" type="button" style="bottom: 0px;" >Complete Appointment</button>
         </div>
     </div>
+</div>
 </div>

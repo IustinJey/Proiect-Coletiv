@@ -577,3 +577,4 @@ C:\Users\ADMIN\Desktop\Nitro\gombos\Chestii\SkillzGit\SkillzGit9\Skillz\skillz-b
 C:\Users\ADMIN\Desktop\Nitro\gombos\Chestii\SkillzGit\SkillzGit9\Skillz\skillz-backend\skillz-backend\obj\Debug\net6.0\skillz-backend.pdb
 C:\Users\ADMIN\Desktop\Nitro\gombos\Chestii\SkillzGit\SkillzGit9\Skillz\skillz-backend\skillz-backend\obj\Debug\net6.0\skillz-backend.genruntimeconfig.cache
 C:\Users\ADMIN\Desktop\Nitro\gombos\Chestii\SkillzGit\SkillzGit9\Skillz\skillz-backend\skillz-backend\obj\Debug\net6.0\ref\skillz-backend.dll
+C:\Users\ADMIN\Desktop\Nitro\gombos\Chestii\SkillzGit\SkillzGit9\Skillz\skillz-backend\skillz-backend\bin\Debug\net6.0\skillz-backend.staticwebassets.runtime.json

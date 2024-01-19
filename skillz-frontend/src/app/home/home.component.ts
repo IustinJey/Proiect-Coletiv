@@ -44,4 +44,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/jobs-listing', this.selectedJobTitle.toLowerCase()]);
     }
   }
+  navigate(location: string) {
+    this.router.navigate([location]);
+  }
 }

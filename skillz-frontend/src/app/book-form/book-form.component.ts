@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobService } from '../job.service';
 import { BookingService } from '../booking.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-book-form',
   templateUrl: './book-form.component.html',
   styleUrl: './book-form.component.css'
 })
-export class BookFormComponent {
+export class BookFormComponent implements OnInit{
   selectedDate: Date = new Date();
   // Define your list of dates (make sure they are in Date format)
   unavailableDates: Date[] = [new Date('2024-01-11'), new Date('2024-01-20')];
-
+  username: string = '';
+  jobTitle: string = '';
+  jobId: number = 0;
+  providerId: number = 0;
   details: string = "";
   location: string = "";
 
@@ -23,11 +27,32 @@ export class BookFormComponent {
   selectedJobTitle: string = '';
   sanitizer: any;
 
-  constructor(private router: Router, private authService: AuthService, private jobService: JobService, private bookingService: BookingService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService, private jobService: JobService, private bookingService: BookingService, private userService: UserService) { }
 
   ngOnInit() {
-    this.fetchProviderAppointments();
+    this.route.params.subscribe(async params => {
+      const jobId = params['jobId'];
+      await this.loadPage(jobId);
+      await this.fetchProviderAppointments();
+    });
   }
+
+  async loadPage(jobId: number) {
+    this.jobService.getJobById(jobId).subscribe((job: any) => {
+      console.log("job: ",job);
+      this.userService.getUserById(job.idUser).subscribe(async (user: any) => {
+        if (user) {
+          console.log(job);
+          console.log(user);
+          this.jobId = jobId;
+          this.providerId = job.idUser;
+          this.jobTitle = job.jobTitle;
+          this.username = user.username;
+        }
+      });
+    });
+  }
+
 
   step_initial_action() {
     this.showStepInitial = false;
@@ -42,10 +67,10 @@ export class BookFormComponent {
     // Create a booking object with the required properties
     const bookingDto = {
       clientUserId: this.authService.getUserId(), // Get client user id from auth service
-      providerUserId: 1, // Set provider user id to 1 (as mentioned)
+      providerUserId: this.providerId, // Set provider user id to 1 (as mentioned)
       dateTime: this.selectedDate.toISOString(), // Convert selectedDate to ISO format
       details: combinedDetails,
-      jobId: 1,
+      jobId: this.jobId,
       status: '1',
     };
 
@@ -59,13 +84,14 @@ export class BookFormComponent {
 
         // Fetch appointments for the provider and update unavailableDates
         this.fetchProviderAppointments();
-
+        this.router.navigate(['/home']);
         // Optionally, navigate to a success page or perform other actions
       },
       (error) => {
         // Handle error during booking creation
         console.error('Error creating booking:', error);
       }
+
     );
   } else {
     console.log("Nu se auth is false");
@@ -78,13 +104,13 @@ export class BookFormComponent {
   }
   }
 
-  fetchProviderAppointments() {
+  async fetchProviderAppointments() {
     // Assume you have a function in your booking service to get provider's appointments
-    this.bookingService.getBookingsByProvider(1).subscribe(
+    this.bookingService.getBookingsByProvider(this.providerId).subscribe(
       (providerAppointments) => {
         console.log("Appointmaents: ",providerAppointments)
         // Filter appointments with status "accepted"
-        const acceptedAppointments = providerAppointments.filter(appointment => appointment.status === 'Accepted');
+        const acceptedAppointments = providerAppointments.filter(appointment => appointment.status == 2);
         console.log("Accepted app:",acceptedAppointments)
         // Extract dates from acceptedAppointments and update unavailableDates
         const acceptedDates = acceptedAppointments.map(appointment => new Date(appointment.dateTime));
