@@ -1,24 +1,35 @@
 <div data-collapse="small" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
 role="banner" class="nav-bar allah w-nav">
-<div class="nav-container allah w-container">
-    <div class="logo-div"><a href="/" aria-current="page" class="nav-logo w-inline-block w--current"><img
-                src="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af8638fc_skillz-logo.png"
-                width="49" sizes="(max-width: 479px) 38vw, 49px"
-                srcset="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af8638fc_skillz-logo-p-500.png 500w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af8638fc_skillz-logo-p-800.png 800w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af8638fc_skillz-logo-p-1080.png 1080w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af8638fc_skillz-logo.png 1374w"
-                alt="" class="backbutton" /></a></div>
-    <div class="profile-button w-profile-button"><img
-                    src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3).png"
-                loading="lazy" width="22" sizes="(max-width: 991px) 22px, (max-width: 1279px) 2vw, 22px" alt=""
-                srcset="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3)-p-500.png 500w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3).png 512w"
-                class="image" /></div>
-    <div class="menu-button w-nav-button"><img
-                src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37b92b05517bd6be65fe_dots.png"
-                loading="lazy" width="24" sizes="(max-width: 479px) 24px, 100vw" alt=""
-                srcset="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37b92b05517bd6be65fe_dots-p-500.png 500w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37b92b05517bd6be65fe_dots.png 512w"
-                class="menu-icon" /></div>             
-    
+<div class="nav-mate" data-collapse="small" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
+role="banner" class="nav-bar w-nav">
+<div class="nav-container w-container" style="width: 435px;">
+    <div class="logo-div"><a href="/home" aria-current="page" class="nav-logo w-inline-block w--current"><img
+                src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo.png"
+                width="86" sizes="86px"
+                srcset="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo-p-500.png 500w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo-p-800.png 800w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo-p-1080.png 1080w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo.png 1374w"
+                alt="" class="logo" /></a></div>
+    <div class="profile-button w-profile-button"><a href="/profile"><img
+            src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3).png"
+        loading="lazy" width="22" sizes="(max-width: 991px) 22px, (max-width: 1279px) 2vw, 22px" alt=""
+        srcset="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3)-p-500.png 500w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3).png 512w"
+        class="image" /></a></div>
+    <div class="menu-button w-nav-button" (click)="toggleDropdown()">
+        <img src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37b92b05517bd6be65fe_dots.png"
+            loading="lazy" width="24" sizes="(max-width: 479px) 24px, 100vw" alt=""
+            srcset="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37b92b05517bd6be65fe_dots-p-500.png 500w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37b92b05517bd6be65fe_dots.png 512w"
+            class="menu-icon" />
+    </div>
+</div>
+<div id="dropdownMenu" class="dropdown-menu" *ngIf="isDropdownVisible">
+    <a href="/appointments" style="color: #000;" >Appointments</a>
+    <a href="/history" style="color: #000;" >History</a>
+    <a href="/my-services" style="color: #000;" >My Services</a>
+    <a href="/login" style="color: #000;" >Log Out</a>
+    <a href="/job-post" class="become-worker-button">Become a Worker!</a>
 </div>
 </div> 
+</div> 
+<div style="background-color: white;">
 <div class="page-wrapper allah">
 <div class="section light-color-gradient">
     <h1 style="margin: 0px; font-weight: 600;">Appointments</h1>
@@ -276,6 +287,7 @@ role="banner" class="nav-bar allah w-nav">
         </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=65635da09dc83a90af8638e0"

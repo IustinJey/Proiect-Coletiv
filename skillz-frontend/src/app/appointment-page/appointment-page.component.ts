@@ -14,7 +14,7 @@ export class AppointmentPageComponent implements OnInit {
   asClient: boolean = true;
   asWorker: boolean = false;
   circleColor: string = '#3498db';
-
+  isDropdownVisible: boolean = false;  // Added property
   appointmentsClient: {
     bookingId: string;
     jobTitle: string;
@@ -169,5 +169,9 @@ openAsWorker(){
 
 changeCircleColor(color: string): void {
   this.circleColor = color;
+}
+
+toggleDropdown() {
+  this.isDropdownVisible = !this.isDropdownVisible;
 }
 }

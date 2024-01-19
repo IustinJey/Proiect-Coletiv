@@ -1,64 +1,118 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JobService } from '../job.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../user.service';
+import JSZip from 'jszip';
 
 @Component({
   selector: 'app-jobs-listing',
   templateUrl: './jobs-listing.component.html',
-  styleUrl: './jobs-listing.component.css'
+  styleUrls: ['./jobs-listing.component.css']
 })
-export class JobsListingComponent {
-//   jobs = [
-//     {
-//         title: 'Gardener',  
-//         rating: '4.3/5',
-//         username: 'Gombos Andrei',
-//         experience: '6+ years',
-//         certificationStatus: 'Not Certified',
-//         backgroundImage: "https://img.freepik.com/premium-photo/wooden-garden-table-with-trees-flowers-blurred-background-generative-ai_74760-571.jpg",
-//         profileImage: 'https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863905_gardener-job-description-1659711272.webp',
-//         jobTypeLogo:'https://assets-global.website-files.com/65635da09dc83a90af8638e0/6563938b39802fe6b6fd8969_gardening.png',
-//         isVerified: false // Set the verified status based on your logic
+export class JobsListingComponent implements OnInit {
+  isDropdownVisible: boolean = false;  // Added property
+  imageFiles: File[] = [];
+  jobs: {
+    jobId: number;
+    title: string;
+    rating: string;
+    username: string;
+    workerId: number;
+    experience: number;
+    certificationStatus: boolean;
+    isVerified: boolean;
+    profileImage: string;
+    jobTypeLogo: string;
+    backgroundImage: string;
+  }[] = [];
 
-//     }
-// ];
-jobs: any[] = [];
+  constructor(
+    private jobService: JobService,
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  constructor(private jobService: JobService, private route: ActivatedRoute) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       const jobTitle = params['jobTitle'];
-
-      if (jobTitle) {
-        this.loadJobsByTitle(jobTitle);
-      } else {
-        // Handle the case when no job title is specified
-        this.loadAllJobs();
-      }
+      this.loadJobsList(jobTitle);
     });
   }
 
-  loadJobsByTitle(jobTitle: string) {
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  loadJobsList(jobTitle: string): void {
     this.jobService.getJobsByTitle(jobTitle).subscribe(
-      jobs => {
-        this.jobs = jobs;
+      async jobs => {
+        const jobPromises = jobs.map(async job => {
+          const worker = await this.userService.getUserById(job.idUser).toPromise();
+
+          return {
+            jobId: job.idJob,
+            title: job.jobTitle,
+            rating: '4.3/5', // You can set the rating based on your logic
+            username: worker.username,
+            workerId: job.idUser,
+            experience: job.experiencedYears,
+            certificationStatus: false, // You need to fetch this information
+            isVerified: false, // You need to fetch this information
+            profileImage: worker.profileImage, // You need to fetch this information
+            jobTypeLogo: '',
+            backgroundImage: await this.getJobBackgroundImage(job.idJob)
+          };
+        });
+
+        // Wait for all promises to resolve and then assign the values to this.jobs
+        this.jobs = await Promise.all(jobPromises);
       },
       error => {
-        console.error('Error loading jobs by title:', error);
+        console.error('Error loading jobs list:', error);
       }
     );
   }
 
-  loadAllJobs() {
-    this.jobService.getAllJobs().subscribe(
-      jobs => {
-        this.jobs = jobs;
-      },
-      error => {
-        console.error('Error loading all jobs:', error);
+  async getJobBackgroundImage(jobId: number) {
+    console.log('Start getJobBackgroundImage');
+    console.log('Job ID:', jobId);
+  
+    try {
+      const response = await this.jobService.getJobImagesById(jobId).toPromise();
+      console.log('API Response:', response);
+  
+      if (response instanceof Blob) {
+        // Extract images from the ZIP file
+        const zip = new JSZip();
+        const zipData = await zip.loadAsync(response);
+  
+        // Assuming images are stored in the root of the ZIP file
+        const imageFiles = Object.values(zipData.files);
+  
+        if (imageFiles.length > 0) {
+          const imageUrl = URL.createObjectURL(await imageFiles[0].async('blob'));
+          console.log('Image URL:', imageUrl);
+          return imageUrl;
+        } else {
+          console.error('No image found in the ZIP file.');
+        }
+      } else {
+        console.error('Unexpected response format:', response);
       }
-    );
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    }
+  
+    // Return default path if an error occurred
+    console.log('Returning default path.');
+    return 'path/to/default/image.jpg';
   }
- 
+  
+  redirectToJobPage(jobId: number) {
+    if(jobId) {
+      this.router.navigate(['/job-page', jobId]);
+    }
+  }
+
 }
