@@ -44,6 +44,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.UseStaticFiles();  // Manually set up static files middleware
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
 
 var env = app.Services.GetRequiredService<IWebHostEnvironment>();
 env.WebRootPath = "wwwroot";

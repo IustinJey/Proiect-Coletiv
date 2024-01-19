@@ -1,14 +1,18 @@
-  .big-container{
-    height: 100%;
-    background-color: white;
-  }
-  .container {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    width: 100%; /* Set width to 100% for mobile devices */
-    /* Set a maximum width for larger screens */
-  }
+.big-container {
+  min-height: 100%;  /* Set min-height to ensure it takes at least the full height of the viewport */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 435px;  /* Set a maximum width for larger screens */
+}
   
   .container .header,
   .container .logo,

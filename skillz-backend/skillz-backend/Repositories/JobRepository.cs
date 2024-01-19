@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using skillz_backend.data;
 using skillz_backend.models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace skillz_backend.Repositories
 {
@@ -89,6 +91,24 @@ namespace skillz_backend.Repositories
             _dbContext.JobImages.Add(jobImage);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task DeleteJobImageAsync(int jobId)
+        {
+            // Find images with the given jobId
+            List<JobImage> imagesToDelete = await _dbContext.JobImages
+                .Where(image => image.JobId == jobId)
+                .ToListAsync();
+
+            foreach (var image in imagesToDelete)
+            {
+                // Remove each image individually
+                _dbContext.JobImages.Remove(image);
+            }
+
+            // Save changes after removing all images
+            await _dbContext.SaveChangesAsync();
+        }
+
 
         public async Task<List<JobImage>> GetAllImagesAsync()
         {

@@ -35,5 +35,7 @@ namespace skillz_backend.Repositories
         Task DeleteJobAsync(int jobId);
 
         Task CreateJobImageAsync(JobImage jobImage);
+
+        Task DeleteJobImageAsync(int jobId);    
     }
 }

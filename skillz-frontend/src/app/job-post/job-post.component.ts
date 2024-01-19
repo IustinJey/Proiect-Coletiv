@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { SafeUrl } from '@angular/platform-browser';
 import { JobService } from '../job.service';
+
 
 @Component({
   selector: 'app-job-post',
@@ -63,54 +63,58 @@ export class JobPostComponent {
     this.showStep2 = false;
     this.showStep3 = true;
   }
-  step3_action() {
-    // Check if the user is authenticated
-    if (this.authService.isAuthenticated()) {
-      // Create a job object with the required properties
-      const jobDto = {
-        Description: this.details,
-        ExperiencedYears: parseInt(this.experiencedYears),
-        JobTitle: this.selectedJobTitle,
-        IdUser: this.authService.getUserId(), // Assuming you have a getUserId() method in your AuthService
-      };
-
-      // Call the job service to create the job
-      this.jobService.createJob(jobDto, this.imageFiles)
+  step3_action(): void {
+    if (this.authService.getAuthStatus()) {
+      const userId = this.authService.getUserId()
+      if(userId){
+      const formData = new FormData();
+  
+      formData.append('JobTitle', this.selectedJobTitle);
+      formData.append('Description', this.details);
+      formData.append('ExperiencedYears', this.experiencedYears.toString());
+      formData.append('IdUser', userId.toString());
+  
+      for (const imageFile of this.imageFiles) {
+        formData.append('Images', imageFile);
+      }
+  
+      this.jobService.createJobWithImages(formData)
         .subscribe(
-          (response) => {
-            console.log('Job created successfully!', response);
-            // Redirect to the job details page or any other page
-            this.router.navigate(['/home', response.id]); // Assuming the response contains the created job's ID
-          },
-          (error) => {
-            console.error('Error creating job:', error);
-            // Handle the error
-          }
+          (response) => this.handleJobCreationSuccess(response),
+          (error) => this.handleJobCreationError(error)
         );
     } else {
-      // User is not authenticated, redirect to login
       this.navigateToLogIn();
     }
   }
+  }
 
-  navigateToLogIn() {
-    this.router.navigate(['/login']); // Navigate to the login route
+  private handleJobCreationSuccess(response: any): void {
+    console.log('Job created successfully!', response);
+    this.router.navigate(['/home']);
+  }
+
+  private handleJobCreationError(error: any): void {
+    console.error('Error creating job:', error);
+    // Handle the error, update errorMessage, show a user-friendly message, etc.
+  }
+
+  navigateToLogIn(): void {
+    this.router.navigate(['/login']);
   }
 
   handleImageUpload(event: any): void {
     const fileList: FileList | null = event.target.files;
 
     if (fileList) {
-      // Convert FileList to array and update imageFiles
       this.imageFiles = Array.from(fileList);
-
-      // You may want to perform additional actions with the uploaded images
     }
   }
+
   removeImage(index: number): void {
-    // Remove the image from the array based on its index
     this.imageFiles.splice(index, 1);
   }
+
   getPreviewImage(imageFile: File): string {
     return URL.createObjectURL(imageFile);
   }
