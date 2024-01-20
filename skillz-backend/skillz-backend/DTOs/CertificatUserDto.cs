@@ -12,6 +12,9 @@ namespace skillz_backend.DTOs
 
         // Gets or sets the unique identifier for the associated user.
         public int IdUser { get; set; }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     }
 }

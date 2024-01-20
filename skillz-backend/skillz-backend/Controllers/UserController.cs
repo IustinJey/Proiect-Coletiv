@@ -238,8 +238,11 @@ namespace skillz_backend.controllers
                     CertificateType = certificatUserDto.CertificateType,
                     IdUser = certificatUserDto.IdUser
                 };
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> main
                 // Create the CertificatUser with images
                 await _userService.CreateCertificatUserAsync(certificatUser);
             }

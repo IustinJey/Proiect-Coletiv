@@ -16,6 +16,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\034ae0bd-aa72-4c45-b886-39f1bd2a177f_florist-california-mo_hpMain_20200508-155959.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+<<<<<<< HEAD
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\0c42236a-3db4-4a31-a754-b7dad4630fe2_AppDemo.png))">
       <SourceType>Package</SourceType>
       <SourceId>skillz-backend</SourceId>
@@ -32,6 +33,8 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\0c42236a-3db4-4a31-a754-b7dad4630fe2_AppDemo.png))</OriginalItemSpec>
     </StaticWebAsset>
+=======
+>>>>>>> main
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\168cfe58-a7ff-45c1-90f8-65b9be637371_download.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>skillz-backend</SourceId>
@@ -96,6 +99,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\43c9dd5f-4f35-4e42-8030-0985798e1925_florist-california-mo_hpMain_20200508-155959.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+<<<<<<< HEAD
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\4e38252d-0ce1-4cfa-adeb-5ad300780ad1_AppDemo.png))">
       <SourceType>Package</SourceType>
       <SourceId>skillz-backend</SourceId>
@@ -112,6 +116,8 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\4e38252d-0ce1-4cfa-adeb-5ad300780ad1_AppDemo.png))</OriginalItemSpec>
     </StaticWebAsset>
+=======
+>>>>>>> main
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\531859b5-c255-4823-9722-f9693ab2d9f7_image.png))">
       <SourceType>Package</SourceType>
       <SourceId>skillz-backend</SourceId>

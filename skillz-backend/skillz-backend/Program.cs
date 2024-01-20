@@ -13,7 +13,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<SkillzDbContext>(options =>
-    options.UseSqlServer(@"Server=DESKTOP-QRSDBVL;Database=SkillzDatabase;Trusted_Connection=True;Encrypt=False;"));
+    options.UseSqlServer(@"Server=ASUS-LAPTOPCLAU\SQLEXPRESS;Database=SkillzDatabase;Trusted_Connection=True;Encrypt=False;"));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
