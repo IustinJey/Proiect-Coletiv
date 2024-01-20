@@ -391,14 +391,6 @@ li {
     background-color: #ddd;
 }
 
-.nav-bar {
-    width: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: #fff; /* Set your desired background color */
-}
 
 .nav-container {
     display: flex;

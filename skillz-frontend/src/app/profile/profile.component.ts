@@ -16,11 +16,6 @@ export class ProfileComponent {
     {
       certificateName: 'Gradinar',
       experience: '+8 years experience'
-    },
-
-    {
-      certificateName: 'Panaramist',
-      experience: '+12 years experience'
     }
 ];
 }
