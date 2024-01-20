@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from '../job.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +9,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  userId: number = 0;
   jobTitles: string[] = [];
   selectedJobTitle: string = '';
   isDropdownVisible: boolean = false;  // Added property
 
-  constructor(private jobService: JobService, private router: Router) {}
+  constructor(private jobService: JobService, private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
+    const id = this.authService.getUserId()
+    if(id)
+    {
+      this.userId = id;
+    }
     this.loadJobTitles();
   }
 
@@ -46,5 +53,8 @@ export class HomeComponent implements OnInit {
   }
   navigate(location: string) {
     this.router.navigate([location]);
+  }
+  redirectToProfile() {
+    this.router.navigate(['/profile', this.userId]);
   }
 }

@@ -13,7 +13,5 @@ namespace skillz_backend.DTOs
         // Gets or sets the unique identifier for the associated user.
         public int IdUser { get; set; }
 
-        // Gets or sets the image associated with the certificate.
-        public List<IFormFile> CertificateImage { get; set; }
     }
 }
