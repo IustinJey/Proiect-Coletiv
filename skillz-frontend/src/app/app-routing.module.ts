@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup-steps', component: SignupStepsComponent},
   { path: 'home', component:HomeComponent},
-  { path: 'profile', component:ProfileComponent},
+  { path: 'profile/:idUser', component:ProfileComponent},
   { path: 'jobs-listing/:jobTitle', component:JobsListingComponent },
   { path: 'job-page/:jobId', component:JobPageComponent},
   { path: 'appointments', component:AppointmentPageComponent},
@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'job-post', component:JobPostComponent},
   { path: 'my-services', component:MyJobsComponent},
   { path: 'booking-form/:jobId', component:BookFormComponent},
+  { path: 'profile-edit/:idUser', component:BookFormComponent},
   // Add other routes as needed
 ];
 @NgModule({

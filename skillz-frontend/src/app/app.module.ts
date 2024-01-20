@@ -23,6 +23,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { JobEditComponent } from './job-edit/job-edit.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AppointmentPageComponent,
     HistoryPageComponent,
     MyJobsComponent,
-    BookFormComponent
+    BookFormComponent,
+    ProfileEditComponent,
+    JobEditComponent
   ],
   imports: [
     HttpClientModule,

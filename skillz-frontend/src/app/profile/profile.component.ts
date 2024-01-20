@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { JobService } from '../job.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,21 +10,35 @@ import { Component } from '@angular/core';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+username: string = '';
+location: string = '';
+verified: boolean = false;
+profileImage: string = '';
+certificates: string[] = [];
 
-  certificates = [
-    {
-      certificateName: 'Electrician',
-      experience: '+5 years experience'
-    },
+  constructor(private jobService: JobService,
+              private userService: UserService, 
+              private router: Router, 
+              private authService: AuthService,
+              private route: ActivatedRoute){}
 
-    {
-      certificateName: 'Gradinar',
-      experience: '+8 years experience'
-    },
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const userId = params['userId'];
+      this.loadData(userId);
+    });
+  }
 
-    {
-      certificateName: 'Panaramist',
-      experience: '+12 years experience'
-    }
-];
+  loadData(idUser: number){
+    this.userService.getUserById(idUser).subscribe(async (user: any) => {
+      this.username = user.username;
+      this.location = user.location;
+      this.certificates = await this.loadCertificates(idUser);
+    });
+  }
+
+
+  loadCertificates(IdUser: number){
+    return []
+  }
 }
