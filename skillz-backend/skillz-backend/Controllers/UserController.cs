@@ -238,9 +238,6 @@ namespace skillz_backend.controllers
                     CertificateType = certificatUserDto.CertificateType,
                     IdUser = certificatUserDto.IdUser
                 };
-
-                List<string> savedImagePaths = await SaveImages(certificatUserDto.CertificateImage, _webHostEnvironment.WebRootPath);
-
                 // Create the CertificatUser with images
                 await _userService.CreateCertificatUserAsync(certificatUser);
             }

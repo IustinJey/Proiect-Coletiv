@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using skillz_backend.Repositories;
 using skillz_backend.models;
 using skillz_backend.Repositories.Interfaces;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace skillz_backend.Services
 {
@@ -79,7 +80,7 @@ namespace skillz_backend.Services
         }
 
         // Creates a new job asynchronously
-        public async Task CreateJobAsync(Job job, List<IFormFile>? images)
+        public async Task CreateJobAsync(Job job, List<String>? images)
         {
             // Validation for non-null job object and required properties
             if (job == null)
@@ -126,7 +127,7 @@ namespace skillz_backend.Services
                 {
                     var jobImage = new JobImage
                     {
-                        ImageUrl = await SaveImageToDatabase(image),
+                        ImageUrl = image,
                         JobId = job.IdJob
                     };
 
@@ -135,32 +136,10 @@ namespace skillz_backend.Services
             }
         }
 
-        private async Task<string> SaveImageToDatabase(IFormFile image)
-        {
-            // Generate a unique filename
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-
-            // Specify the folder path where images will be saved
-            var folderPath = Path.Combine(_environment.WebRootPath, "uploads");
-
-            // Create the full path for the image
-            var filePath = Path.Combine(folderPath, fileName);
-
-            // Save the image to the specified folder
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(stream);
-            }
-
-            // Generate the URL for the saved image
-            var imageUrl = String.Format(@"C:\\claudiu\\Facultate\\Skillz\\skillz-backend\\skillz-backend\\uploads\\{0}", fileName);
-
-            return imageUrl;
-        }
 
 
         // Updates an existing job asynchronously
-        public async Task UpdateJobAsync(Job job)
+        public async Task UpdateJobAsync(Job job, List<String> savedImagePaths)
         {
             // Validation for a valid job object and JobId
             if (job == null || job.IdJob <= 0)
@@ -188,6 +167,21 @@ namespace skillz_backend.Services
             if (existingUser == null)
             {
                 throw new InvalidOperationException($"User with Id {job.IdUser} does not exist.");
+            }
+
+            if (savedImagePaths != null)
+            {
+                await _jobRepository.DeleteJobImageAsync(job.IdJob);
+                foreach (var image in savedImagePaths)
+                {
+                    var jobImage = new JobImage
+                    {
+                        ImageUrl = image,
+                        JobId = job.IdJob
+                    };
+
+                    await _jobRepository.CreateJobImageAsync(jobImage);
+                }
             }
 
             // Update the job
