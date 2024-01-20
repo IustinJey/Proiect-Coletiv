@@ -1,7 +1,7 @@
 // job.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,29 +33,66 @@ export class JobService {
 
   createJob(jobDto: any, images: File[]): Observable<any> {
     const formData = new FormData();
-
+  
     // Append jobDto properties to the FormData
     Object.keys(jobDto).forEach(key => {
-      formData.append(key, jobDto[key]);
+      if (key === 'Images') {
+        // Append images directly under the 'Images' property
+        images.forEach((image, index) => {
+          formData.append(`Images[${index}]`, image, image.name);
+        });
+      } else {
+        formData.append(key, jobDto[key]);
+      }
     });
+  
+    // Headers for handling FormData
+    const headers = {
+      // You can add any specific headers here if needed
+    };
+  
+    return this.http.post<any>(`${this.apiUrl}`, formData, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error in createJob:', error);
+        return throwError(error);
+      })
+    );
+  }
+  
 
-    // Append images to the FormData
-    images.forEach((image, index) => {
-      formData.append(`files[${index}]`, image, image.name);
+  updateJob(jobId: number, jobDto: any, images: File[]): Observable<any> {
+    const formData = new FormData();
+  
+    // Append jobDto properties to the FormData
+    Object.keys(jobDto).forEach(key => {
+      if (key === 'Images') {
+        // Append images directly under the 'Images' property
+        images.forEach((image, index) => {
+          formData.append(`Images[${index}]`, image, image.name);
+        });
+      } else {
+        formData.append(key, jobDto[key]);
+      }
     });
-
+  
     // Headers for handling FormData
     const headers = new HttpHeaders();
-
-    return this.http.post<any>(`${this.apiUrl}`, formData, { headers });
+  
+    return this.http.put<any>(`${this.apiUrl}/${jobId}`, formData, { headers });
   }
+  
+  createJobWithImages(formData: FormData): Observable<any> {
+    const headers = {
+      // You can add any specific headers here if needed
+    };
 
-  updateJob(jobId: number, jobDto: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    return this.http.put<any>(`${this.apiUrl}/${jobId}`, jobDto, { headers });
+    return this.http.post(`${this.apiUrl}`, formData, {headers})
+    .pipe(
+      catchError((error) => {
+        console.error('Error in createJob:', error);
+        return throwError(error);
+      })
+    );
   }
 
   deleteJob(jobId: number): Observable<any> {
@@ -63,5 +100,12 @@ export class JobService {
     });
 
     return this.http.delete<any>(`${this.apiUrl}/${jobId}`, { headers });
+  }
+
+  getJobImagesById(jobId: number): Observable<Blob> {
+    const url = `https://localhost:7062/job/Job/${jobId}/images`;
+  
+    // Specify responseType as 'blob' to handle binary data
+    return this.http.get(url, { responseType: 'blob' });
   }
 }

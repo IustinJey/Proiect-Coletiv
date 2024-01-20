@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
 import { SignupStepsComponent } from './signup-steps/signup-steps.component';
 import { AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,18 +18,16 @@ import { AppointmentPageComponent } from './appointment-page/appointment-page.co
 import { HistoryPageComponent } from './history-page/history-page.component';
 import { MyJobsComponent } from './my-jobs/my-jobs.component';
 import { BookFormComponent } from './book-form/book-form.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent,
     SignupStepsComponent,
     HomeComponent,
     ProfileComponent,

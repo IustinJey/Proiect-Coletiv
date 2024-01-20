@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './my-jobs.component.css'
 })
 export class MyJobsComponent {
+  isDropdownVisible: boolean = false;  // Added property
     jobs = [
       {
           title: 'Gardener',  
@@ -33,5 +34,8 @@ export class MyJobsComponent {
     }
   ];
   
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
    
   }

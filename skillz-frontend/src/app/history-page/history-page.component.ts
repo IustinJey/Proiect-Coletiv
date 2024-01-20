@@ -4,6 +4,7 @@ import { BookingService } from '../booking.service';
 import { UserService } from '../user.service';
 import { JobService } from '../job.service';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-history-page',
@@ -11,6 +12,7 @@ import { forkJoin } from 'rxjs';
   styleUrl: './history-page.component.css'
 })
 export class HistoryPageComponent implements OnInit {
+  isDropdownVisible: boolean = false;  // Added property
   asClient: boolean = true;
   asWorker: boolean = false;
   circleColor: string = '#3498db';
@@ -39,11 +41,16 @@ export class HistoryPageComponent implements OnInit {
     private authService: AuthService,
     private bookingService: BookingService,
     private userService: UserService,
-    private jobService: JobService
+    private jobService: JobService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadAppointments();
+  }
+
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
   }
 
   loadAppointments(): void {

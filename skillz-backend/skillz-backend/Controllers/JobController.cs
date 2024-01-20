@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -118,7 +119,47 @@ namespace skillz_backend.controllers
         public async Task<ActionResult<List<JobImage>>> GetImagesByJobIdAsync(int jobId)
         {
             var images = await _jobService.GetImagesByJobIdAsync(jobId);
-            return Ok(images);
+
+            if (images == null || images.Count == 0)
+            {
+                return NotFound();
+            }
+
+            var imageStreams = new List<MemoryStream>();
+
+            foreach (var image in images)
+            {
+                var imagePath = Path.Combine(image.ImageUrl);
+
+                if (System.IO.File.Exists(imagePath))
+                {
+                    var imageBytes = await System.IO.File.ReadAllBytesAsync(imagePath);
+                    var imageStream = new MemoryStream(imageBytes);
+                    imageStreams.Add(imageStream);
+                }
+            }
+
+            if (imageStreams.Count == 0)
+            {
+                return NotFound();
+            }
+
+            var archiveStream = new MemoryStream();
+            using (var zipArchive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
+            {
+                for (int i = 0; i < imageStreams.Count; i++)
+                {
+                    var entry = zipArchive.CreateEntry($"image_{i + 1}.jpg");
+                    using (var entryStream = entry.Open())
+                    {
+                        imageStreams[i].CopyTo(entryStream);
+                    }
+                }
+            }
+
+            archiveStream.Position = 0;
+
+            return File(archiveStream, "application/zip", $"images_{jobId}.zip");
         }
 
         // Creates a new job
@@ -142,8 +183,8 @@ namespace skillz_backend.controllers
                     IdUser = jobDto.IdUser
                 };
                 List<string> savedImagePaths = await SaveImages(jobDto.Images, _webHostEnvironment.WebRootPath);
-                // Create the job with images
-                await _jobService.CreateJobAsync(job, null);
+                // Create the job with image
+                await _jobService.CreateJobAsync(job, savedImagePaths);
             }
             catch (Exception ex)
             {
@@ -187,7 +228,7 @@ namespace skillz_backend.controllers
 
         // Updates an existing job
         [HttpPut("{jobId}")]
-        public async Task<IActionResult> UpdateJob(int jobId, [FromBody] JobDto jobDto)
+        public async Task<IActionResult> UpdateJob(int jobId, [FromForm] JobDto jobDto)
         {
             // Validate the ModelState
             if (!ModelState.IsValid)
@@ -212,7 +253,7 @@ namespace skillz_backend.controllers
 
                 List<string> savedImagePaths = await SaveImages(jobDto.Images, _webHostEnvironment.WebRootPath);
 
-                await _jobService.UpdateJobAsync(existingJob);
+                await _jobService.UpdateJobAsync(existingJob, savedImagePaths);
             }
             catch (Exception ex)
             {
