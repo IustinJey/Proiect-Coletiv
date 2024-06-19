@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup-steps', component: SignupStepsComponent},
   { path: 'home', component:HomeComponent},
-  { path: 'profile', component:ProfileComponent},
+  { path: 'profile/:userId', component:ProfileComponent},
   { path: 'jobs-listing/:jobTitle', component:JobsListingComponent },
   { path: 'job-page/:jobId', component:JobPageComponent},
   { path: 'appointments', component:AppointmentPageComponent},

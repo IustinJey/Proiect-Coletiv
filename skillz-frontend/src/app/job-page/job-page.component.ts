@@ -16,6 +16,7 @@ export class JobPageComponent implements OnInit{
   ];
 
   //text
+  certificates: string[] = [];
   jobId: number = 0;
   jobTitle: string = '';
   username: string = '';
@@ -61,22 +62,6 @@ export class JobPageComponent implements OnInit{
     }
   }
 
-  jcertificates = [
-    {
-      certificateName: 'Electrician',
-      experience: '+5 years experience'
-    },
-
-    {
-      certificateName: 'Gradinar',
-      experience: '+8 years experience'
-    },
-
-    {
-      certificateName: 'Panaramist',
-      experience: '+12 years experience'
-    }
-];
 
 loadPage(jobId: number) {
   this.jobService.getJobById(jobId).subscribe((job: any) => {
@@ -89,11 +74,17 @@ loadPage(jobId: number) {
         this.jobTitle = job.jobTitle;
         this.username = user.username;
         this.images = await this.getJobBackgroundImages(job.idJob);
+        this.loadCertificates(job.idUser);
       }
     });
   });
 }
 
+loadCertificates(IdUser: number){
+  this.userService.getUserCertificatesByUserId(IdUser).subscribe(certificates => {
+    this.certificates = certificates.map(cert => cert.certificateType);
+  });
+}
 
 async getJobBackgroundImages(jobId: number) {
   console.log('Start getJobBackgroundImages');

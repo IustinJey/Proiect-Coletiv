@@ -12,8 +12,8 @@ using skillz_backend.data;
 namespace skillz_backend.Migrations
 {
     [DbContext(typeof(SkillzDbContext))]
-    [Migration("20240120075003_migr")]
-    partial class migr
+    [Migration("20240120081337_Migr1")]
+    partial class Migr1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

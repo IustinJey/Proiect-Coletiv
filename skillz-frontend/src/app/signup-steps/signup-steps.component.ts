@@ -24,8 +24,10 @@ export class SignupStepsComponent {
   constructor(private router: Router, private authService: AuthService) { }
 
   step_initial_action() {
+    if(this.confirmPassword == this.password){
     this.showStepInitial = false;
     this.showStep1 = true;
+    }
   }
   step1_action() {
     this.showStep1 = false;

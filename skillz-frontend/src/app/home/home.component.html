@@ -10,11 +10,11 @@
                         width="86" sizes="86px"
                         srcset="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo-p-500.png 500w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo-p-800.png 800w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo-p-1080.png 1080w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f2f365bcaee3e068a5c1e_skillz-logo.png 1374w"
                         alt="" class="logo" /></a></div>
-            <div class="profile-button w-profile-button"><a href="/profile"><img
+            <div class="profile-button w-profile-button"><a href="#" (click)="redirectToProfile()"><img
                     src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3).png"
                 loading="lazy" width="22" sizes="(max-width: 991px) 22px, (max-width: 1279px) 2vw, 22px" alt=""
                 srcset="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3)-p-500.png 500w, https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37d295b2efa3dbfcb4ae_user%20(3).png 512w"
-                class="image" /></a></div>
+                class="image"/></a></div>
             <div class="menu-button w-nav-button" (click)="toggleDropdown()">
                 <img src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/655f37b92b05517bd6be65fe_dots.png"
                     loading="lazy" width="24" sizes="(max-width: 479px) 24px, 100vw" alt=""
@@ -60,10 +60,73 @@
                     <div id="w-node-e5a34abe-28b9-2a28-5236-049079f69543-bedee9b0"
                         class="w-layout-layout quick-stack wf-layout-layout">
                         <div id="w-node-e5a34abe-28b9-2a28-5236-049079f69544-bedee9b0" class="w-layout-cell">
-                            <h2 class="heading h3">Order History</h2>
+                            <h2 class="heading h3">Appointments History</h2>
                         </div>
+                        <div id="London" class="tabcontent">
+                            <ul role="list" class="list w-list-unstyled">
+                                <li *ngFor="let job of appointmentsClient.slice().reverse(); let j = index" class="job-box" [attr.data-index]="j + 1">
+                                    <a href="#">
+                    
+                                    <div id="w-node-_7582a052-5653-8a8f-b11d-ca8e827798b2-af8638df"
+                                        class="w-layout-layout quick-stack-6 wf-layout-layout">
+                                        <div class="w-layout-cell cell-7">
+                                            <div id="w-node-_496b89ba-a22b-8c06-2808-f11e347754a3-af8638df"
+                                                class="w-layout-layout quick-stack-3 wf-layout-layout">
+                                                <div class="w-layout-cell cell-4">
+                                                    <h1 style="left: 0px;" class="job-title">{{job.jobTitle}}</h1>
+                                                </div>
+                                                
+                                            </div>
+                                            <h1 class="rating1">{{ job.rating }}</h1>
+                                        </div>
+                                        <div class="w-layout-cell cell-6">
+                                            <div class="w-layout-blockcontainer container-4 w-container"><img
+                                                    src= "{{ job.profileImage }}"
+                                                    loading="lazy" sizes="(max-width: 599px) 100vw, 599px"
+                                                    srcset="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863905_gardener-job-description-1659711272-p-500.webp 500w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863905_gardener-job-description-1659711272.webp 599w"
+                                                    alt="" class="profileimage1" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="w-layout-blockcontainer w-container">
+                                        <div id="w-node-_25d8983a-7c98-f8e4-d834-230a14bac975-af8638df"
+                                            class="w-layout-layout quick-stack-3 fgdfd wf-layout-layout">
+                                            <div class="w-layout-cell cell-4 asd">
+                                                <h1 style="left: 0px;" class="username-profile">{{ job.clientUsername }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="w-node-_2f02665f-b668-e4da-de88-c6c557c88486-af8638df"
+                                        class="w-layout-layout quick-stack-6 wf-layout-layout">
+                                        <div class="w-layout-cell cell-7 sfdf">
+                                            <div id="w-node-_3d74e1d6-345b-e5e7-ce1b-07e641c4be70-af8638df"
+                                                class="w-layout-layout quick-stack-3 zxfd wf-layout-layout">
+                                                <div id="w-node-_3d74e1d6-345b-e5e7-ce1b-07e641c4be71-af8638df" class="w-layout-cell cell-4 asdad">
+                                                    <h1 style="font-weight: 600;" class="experience" [style.color]="statusText(job.status).color">{{ statusText(job.status).text }}</h1>
+                                                  </div>
+                                                  <div class="w-layout-cell cell-3">
+                                                    <div class="w-layout-blockcontainer container-5 sadaf w-container">
+                                                      <div class="experience-logo" [style.background-color]="statusText(job.status).color"></div>
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                            <div id="w-node-d2d4b085-43e2-4ccb-c222-f10908a64844-af8638df"
+                                                class="w-layout-layout quick-stack-3 xzcz wf-layout-layout">
+                                                <div id="w-node-d2d4b085-43e2-4ccb-c222-f10908a64845-af8638df"
+                                                    class="w-layout-cell cell-4 asdad">
+                                                    <h1 style="left: 0px;"class="certification-status">{{ job.date }}</h1>
+                                                </div>
+                    
+                                                <!-- Cancel Button -->
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                </li>
+                            </ul>
+                          </div>
                         <div id="w-node-e5a34abe-28b9-2a28-5236-049079f69545-bedee9b0" class="w-layout-cell2">
-                            <p class="paragraph-2">You don&#x27;t have any past orders</p>
+                            <p class="paragraph-2">You don&#x27;t have any other past appointments</p>
                         </div>
                     </div>
                 </div>

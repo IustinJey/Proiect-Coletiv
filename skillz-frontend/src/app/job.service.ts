@@ -1,6 +1,6 @@
 // job.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -108,4 +108,24 @@ export class JobService {
     // Specify responseType as 'blob' to handle binary data
     return this.http.get(url, { responseType: 'blob' });
   }
+
+  filterJobs(jobTitle: string, date: string, location: string): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  
+    const params = new HttpParams()
+      .set('jobTitle', jobTitle)  // Use empty string if jobTitle is null
+      .set('date', date)   // Use empty string if date is null or not a valid Date object
+      .set('location', location); // Use empty string if location is null
+  
+    return this.http.get<any[]>(`${this.apiUrl}/filter`, { headers, params })
+      .pipe(
+        catchError((error) => {
+          console.error('Error filtering jobs list:', error);
+          return throwError(error);
+        })
+      );
+  }
+
 }

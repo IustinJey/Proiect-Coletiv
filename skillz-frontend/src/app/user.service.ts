@@ -22,6 +22,7 @@ export class UserService {
   getUserByEmail(email: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/email/${email}`);
   }
+  
 
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/all`);
@@ -54,5 +55,18 @@ export class UserService {
 
   getUserBadgesByUserId(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${userId}/badges`);
+  }
+
+  createCertificatUserWithImages(certificatUserDto: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('CertificateType', certificatUserDto.CertificateType);
+    formData.append('IdUser', certificatUserDto.IdUser.toString());
+    // Append any additional form data or images as needed
+
+    const headers = new HttpHeaders({
+      
+    });
+
+    return this.http.post<any>(`${this.apiUrl}/createcertificatuserwithimages`, formData, { headers });
   }
 }

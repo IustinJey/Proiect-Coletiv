@@ -36,31 +36,29 @@ role="banner" class="nav-bar allah w-nav">
     <div class="form-block w-form">
         <form id="email-form" name="email-form" data-name="Email Form" method="get" class="form-2"
             data-wf-page-id="65635da09dc83a90af8638df"
-            data-wf-element-id="2760d24a-7cc2-6c03-259b-8f0a86d5424b"><select id="field" name="field"
+            data-wf-element-id="2760d24a-7cc2-6c03-259b-8f0a86d5424b">
+            <select id="field" name="field" [(ngModel)]="selectedJobTitle" 
                 data-name="Field" class="select-job">
-                <option value="">Gradinar</option>
-                <option value="First">Electrician</option>
-                <option value="Second">Zugrav</option>
+                <option value="" disabled>Select a Job Title</option>
+                <option *ngFor="let title of jobTitles" [value]="title">{{ title }}</option>
             </select>
             <div id="w-node-f8b76e3b-13a8-12ae-9ebc-09c16e011eee-af8638df"
                 class="w-layout-layout quick-stack-5 wf-layout-layout">
                 <div class="w-layout-cell">
-                    <input type="date" id="field-2" name="field-2" data-name="Field 2" class="select-field w-input">
+                    <input type="date" [(ngModel)]="selectedDate" id="field-2" name="field-2" data-name="Field 2" class="select-field w-input">
                 </div>
-                <div class="w-layout-cell"><select id="Location" name="Location" data-name="Location"
+                <div class="w-layout-cell"><select [(ngModel)]="selectedLocation" id="Location" name="Location" data-name="Location"
                         class="select-field w-select">
-                        <option value="">Location</option>
-                        <option value="Bucharest">Bucharest</option>
-                        <option value="Cluj-Napoca">Cluj-Napoca</option>
-                        <option value="Timisoara">Timisoara</option>
+                        <option value="" disabled>Location</option>
+                        <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
                     </select></div>
             </div>
             <div id="w-node-f276dc83-9f2d-f92b-d0bc-286840e1e703-af8638df"
                 class="w-layout-layout quick-stack-5 wf-layout-layout">
-                <div class="w-layout-cell"><a href="#" class="button-3 w-button">Filter</a></div>
+                <div class="w-layout-cell"><a href="#" class="button-3 w-button" (click)="filterJobs()">Filter</a></div>
             </div>
         </form>
-        <p class="paragraph-5">7 jobs found for Gradinar</p>
+        <p class="paragraph-5">{{jobsFoundLenght}} jobs found</p>
         <div class="w-form-done"></div>
         <div class="w-form-fail"></div>
     </div>  
@@ -121,7 +119,7 @@ role="banner" class="nav-bar allah w-nav">
                         class="w-layout-layout quick-stack-3 zxfd wf-layout-layout">
                         <div id="w-node-_3d74e1d6-345b-e5e7-ce1b-07e641c4be71-af8638df"
                             class="w-layout-cell cell-4 asdad">
-                            <h1 class="experience">{{ job.experience }}</h1>
+                            <h1 class="experience">{{ job.experience }}+ years</h1>
                         </div>
                         <div class="w-layout-cell cell-3">
                             <div class="w-layout-blockcontainer container-5 sadaf w-container"><img class="experience-logo"
@@ -133,7 +131,8 @@ role="banner" class="nav-bar allah w-nav">
                         class="w-layout-layout quick-stack-3 xzcz wf-layout-layout">
                         <div id="w-node-d2d4b085-43e2-4ccb-c222-f10908a64845-af8638df"
                             class="w-layout-cell cell-4 asdad">
-                            <h1 class="certification-status">{{ job.certificationStatus }}</h1>
+                            <h1 class="certification-status">{{ job.certificationStatus ? 'Certified' : 'Not Certified' }}</h1>
+
                         </div>
                         <div class="w-layout-cell cell-3">
                             <div class="w-layout-blockcontainer container-5 sadaf w-container"><img class="certification-logo"

@@ -8,6 +8,32 @@ role="banner" class="nav-bar w-nav">
 </div>
 </div>
 <div class="page-wrapper">
+    <div *ngIf="isPopupOpen" class="popup-container">
+        <!-- Popup content -->
+        <div class="popup-content">
+          <h2>Add Certificate</h2>
+      
+          <!-- Your form elements -->
+          <label for="certificateType">Certificate Type:</label>
+        
+          <select id="field" name="field" [(ngModel)]="newCertificateType" class="select-field w-select">
+             <option value="" disabled>Select your specialization</option>
+             <option *ngFor="let title of jobTitles" [value]="title">{{ title }}</option>
+            </select>
+      
+          <!-- Upload input (replace with your actual file upload logic) -->
+          <div class="file-input-container">
+            <label for="certificateImage">Certificate Image:</label>
+            <input type="file" id="certificateImage">
+          </div>
+      
+          <!-- Button to add the certificate and close the popup -->
+          <button class="addCertificate" (click)="addCertificate()">Add Certificate</button>
+      
+          <!-- Close button (optional) -->
+          <button class="closePopup" (click)="closePopup()">Close</button>
+        </div>
+      </div>
 <section class="parteverde"> 
     <div class="w-layout-blockcontainer w-container">
         <div id="w-node-_89e9002d-f55b-d64b-e852-b17d5180dafd-42a6db5f"
@@ -23,7 +49,7 @@ role="banner" class="nav-bar w-nav">
                 <div id="w-node-_619bcc74-868e-7dcd-2e50-b8e4296dc935-42a6db5f"
                     class="w-layout-layout quick-stack-3 wf-layout-layout">
                     <div class="w-layout-cell cell-4">
-                        <h1 class="username">Gombos Andrei</h1>
+                        <h1 class="username">{{username}}</h1>
                     </div>
                     <div class="w-layout-cell cell-3">
                         <div class="w-layout-blockcontainer container-5 w-container"><img class="certified"
@@ -37,7 +63,7 @@ role="banner" class="nav-bar w-nav">
                 <div id="w-node-ffbc1f7b-34d0-4f6c-5c0c-cabd61e7eda5-42a6db5f"
                     class="w-layout-layout quick-stack-3 wf-layout-layout">
                     <div id="w-node-ffbc1f7b-34d0-4f6c-5c0c-cabd61e7eda6-42a6db5f" class="w-layout-cell cell-4">
-                        <h1 class="username location">CLuj, Cluj Napoca</h1>
+                        <h1 class="username location">{{location}}</h1>
                     </div>
                     <div class="w-layout-cell cell-3">
                         <div class="div-location"><img class="location-icon"
@@ -53,14 +79,14 @@ role="banner" class="nav-bar w-nav">
 </section>
 <div class="section light-color-gradient">
     <div class="container">
-        <h1 class="profileheading">Certificates</h1>
+        <h1 class="profileheading" (click)="openPopup()">Certificates +</h1>
         <ul role="list" class="w-list-unstyled">
             <li *ngFor="let certificate of certificates; let j = index" class="listitemcertificate" [attr.data-index]="j + 1">
                 <div id="w-node-_7d96fc3a-d0a1-c8a8-320c-59aa71150af9-42a6db5f"
                     class="w-layout-layout quick-stack-4 wf-layout-layout">
                     <div class="w-layout-cell">
-                        <h1 class="heading-9 certificatename certificatetype">{{ certificate.certificateName }}</h1>
-                        <h1 class="heading-9 experiencedyears">{{ certificate.experience}}</h1>
+                        <h1 class="heading-9 certificatename certificatetype">{{ certificate}}</h1>
+                        <h1 class="heading-9 experiencedyears">Unknown years of experience</h1>
                     </div>
                     <div class="certifpoza"><img
                             src="https://assets-global.website-files.com/655f2e25b60b56edbedee980/6560d61756883c569fca7788_certificate%20(2).png"

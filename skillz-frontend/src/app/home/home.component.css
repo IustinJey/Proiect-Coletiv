@@ -207,3 +207,163 @@ image {
     max-width: 40px; /* Set your desired max width for the menu icon */
     height: auto;
 }
+
+
+.job-box {
+    background-color: #ffffff;
+    display: block;
+    list-style-type: none;
+    box-sizing: border-box;
+    border-radius:20px;
+    position: relative;
+    overflow: hidden;
+    height: 180px;
+    width: 100%;
+    margin-left: 0%;
+    margin-bottom: 8px;
+    text-decoration: none;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+.experience-logo {
+    width: 25px; /* Set the desired width for the circle */
+    height: 25px; /* Set the desired height for the circle */
+    border-radius: 50%; /* Make it a circle */
+
+  }
+
+.background-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire box */
+    filter: blur(1px);
+}
+
+.background-image-grey {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire box */
+    position: absolute;
+}
+
+.profileimage1{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow:hidden;
+    position: absolute;
+    top:0;
+    right:0;
+    margin: 20px;  
+    object-fit: cover;
+}
+
+.job-type-logo{
+    position: absolute;
+    top:0;
+    left:0;
+    margin: 20px;
+}
+ 
+.job-title{
+    position:absolute;
+    top: 0;
+    left: 10%;
+    margin: 20px; 
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    height: 1.5em;
+    color: #000000;
+}
+
+.rating1 {
+    position:absolute;
+    top: 12%;
+    margin: 20px; 
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 13px;
+    height: 1.5em;
+    color: #000000;
+}
+
+.username-profile{
+    position: absolute;
+    top: 30%;
+    left: 2%;
+    margin: 20px;
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    height: 1.5em;
+    color: #000000;
+
+}
+
+.verified-image {
+    position: absolute;
+    top: 28%;
+    left: 35%;
+    margin: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+.experience-logo {
+    position: absolute;
+    margin: 20px;
+    width: 20px;
+    height: 20px;
+    top: 47%;
+    left: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+  
+li {
+    margin-left: 0;
+}
+
+
+.experience{
+    position: absolute;
+    margin: 20px;
+    top: 49%;
+    left: 10%;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 13px;
+    height: 1.5em;
+    color: #000000;
+
+}
+
+.certification-logo {
+    position: absolute;
+    margin: 20px;
+    width: 20px;
+    height: 20px;
+    top: 65%;
+    left: 0;
+}
+
+.certification-status {
+    position: absolute;
+    margin: 20px;
+    top: 67%;
+    left: 10%;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 13px;
+    height: 1.5em;
+    color: #000000;
+}

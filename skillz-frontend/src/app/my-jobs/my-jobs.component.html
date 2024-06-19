@@ -35,9 +35,9 @@ role="banner" class="nav-bar w-nav">
 
     <h1 style="margin: 0px; font-weight: 600;">Your services</h1>
     <p style="font-weight: 600;">These are your active services, you can preview and edit them from this page.</p>
-    <ul style="margin-top: 35px; " role="list" class="list w-list-unstyled">
+    <ul role="list" class="list w-list-unstyled">
         <li *ngFor="let job of jobs; let j = index" class="job-box" [attr.data-index]="j + 1">
-            <a href="#">
+            <a href="#" (click)="redirectToJobPage(job.jobId)">
             <img src={{job.backgroundImage}} class="background-image" alt="Background Image" />
             <img src="https://static.wixstatic.com/media/45371b_5286635b98334dda9b3127000d8df809~mv2.png" class="background-image-grey" alt="Background Image Grey" />
             <div id="w-node-_7582a052-5653-8a8f-b11d-ca8e827798b2-af8638df"
@@ -60,11 +60,13 @@ role="banner" class="nav-bar w-nav">
                     </div>
                     <h1 class="rating1">{{ job.rating }}</h1>
                 </div>
-                <div class="edit-button-container">
-                    <button class="edit-button">
-                        <img src="https://static.wixstatic.com/media/45371b_f142e0ad09154571b75221cbf11c8adf~mv2.png" alt="Edit Icon">
-                        Edit
-                    </button>
+                
+                <div class="w-layout-cell cell-6">
+                    <div class="w-layout-blockcontainer container-4 w-container"><img
+                            src= "{{ job.profileImage }}"
+                            loading="lazy" sizes="(max-width: 599px) 100vw, 599px"
+                            srcset="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863905_gardener-job-description-1659711272-p-500.webp 500w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863905_gardener-job-description-1659711272.webp 599w"
+                            alt="" class="profileimage1" /></div>
                 </div>
             </div>
             <div class="w-layout-blockcontainer w-container">
@@ -76,7 +78,11 @@ role="banner" class="nav-bar w-nav">
                     <div id="w-node-_25d8983a-7c98-f8e4-d834-230a14bac979-af8638df"
                         class="w-layout-cell cell-3">
                         <div class="w-layout-blockcontainer container-5 allagh asda w-container">
-                            </div>
+                            <img *ngIf = "job.isVerified" 
+                                src="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863912_6928921.png"
+                                loading="lazy" sizes="(max-width: 512px) 100vw, 512px"
+                                srcset="https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863912_6928921-p-500.png 500w, https://assets-global.website-files.com/65635da09dc83a90af8638e0/65635da09dc83a90af863912_6928921.png 512w"
+                                alt="" class="verified-image" /></div>
                     </div>
                 </div>
             </div>
@@ -87,7 +93,7 @@ role="banner" class="nav-bar w-nav">
                         class="w-layout-layout quick-stack-3 zxfd wf-layout-layout">
                         <div id="w-node-_3d74e1d6-345b-e5e7-ce1b-07e641c4be71-af8638df"
                             class="w-layout-cell cell-4 asdad">
-                            <h1 class="experience">{{ job.experience }}</h1>
+                            <h1 class="experience">{{ job.experience }}+ years</h1>
                         </div>
                         <div class="w-layout-cell cell-3">
                             <div class="w-layout-blockcontainer container-5 sadaf w-container"><img class="experience-logo"
@@ -99,7 +105,8 @@ role="banner" class="nav-bar w-nav">
                         class="w-layout-layout quick-stack-3 xzcz wf-layout-layout">
                         <div id="w-node-d2d4b085-43e2-4ccb-c222-f10908a64845-af8638df"
                             class="w-layout-cell cell-4 asdad">
-                            <h1 class="certification-status">{{ job.certificationStatus }}</h1>
+                            <h1 class="certification-status">{{ job.certificationStatus ? 'Certified' : 'Not Certified' }}</h1>
+
                         </div>
                         <div class="w-layout-cell cell-3">
                             <div class="w-layout-blockcontainer container-5 sadaf w-container"><img class="certification-logo"
